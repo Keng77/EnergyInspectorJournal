@@ -1,53 +1,80 @@
 using InspectorJournal.Data;
+using InspectorJournal.Middleware;
+using InspectorJournal.Models;
+using InspectorJournal.DataLayer.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using InspectorJournal.DataLayer.Models;
+using InspectorJournal.ViewModels;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace InspectorJournal
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        var services = builder.Services;
+
+        // Внедрение зависимости для доступа к БД с использованием EF
+        string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+        services.AddDbContext<InspectionsDbContext>(options => options.UseSqlServer(connectionString));
+
+        string connectionUsers = builder.Configuration.GetConnectionString("IdentityConnection");
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionUsers));
+
+        // Настройка Identity
+        services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
+        // Другие сервисы \\
+
+        services.AddDistributedMemoryCache();
+        services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+        services.AddSession(options =>
         {
-            var builder = WebApplication.CreateBuilder(args);
+            options.Cookie.Name = ".Journal.Session";
+            options.IdleTimeout = TimeSpan.FromSeconds(3600);
+            options.Cookie.IsEssential = true;
+        });
+        services.AddHttpContextAccessor();
+        services.AddControllersWithViews();
+        services.AddRazorPages();
 
-            // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+        var app = builder.Build();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseMigrationsEndPoint();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapStaticAssets();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
-            app.MapRazorPages()
-               .WithStaticAssets();
-
-            app.Run();
+        // Ожидаем, что в Development будем использовать страницу ошибок
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
         }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
+        }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+        app.UseCookiePolicy();
+
+        // Включаем сессии
+        app.UseSession();
+
+        // Важно: вызов app.UseDbInitializer должен быть после app.UseRouting(), но до app.MapControllerRoute()
+        app.UseRouting();
+
+        // Регистрация middleware для инициализации базы данных
+        app.UseDbInitializer();  // Это вызывает вашу инициализацию базы данных
+
+        // Маршруты
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+        app.MapRazorPages();
+
+        app.Run();
     }
 }
