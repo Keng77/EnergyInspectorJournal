@@ -37,10 +37,7 @@
                             <td>@enterprise.Address</td>
                             <td>@enterprise.DirectorName</td>
                             <td>@enterprise.DirectorPhone</td>
-                            @if (User.IsInRole("admin"))
-                            {
-                                <td><a href="~/Enterprise/Edit/@enterprise.EnterpriseId">Редактировать</a></td>
-                            }
+                            @Html.Partial("AdminActions", enterprise.EnterpriseId)
                         </tr>
                     }
                 </tbody>
@@ -58,7 +55,10 @@
                         <th>Код Инспектора</th>
                         <th>Проверяющий</th>
                         <th>Департамент</th>
-                        <th>Действие</th>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <th>Действие</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -68,7 +68,7 @@
                             <td>@inspector.InspectorId</td>
                             <td>@inspector.FullName</td>
                             <td>@inspector.Department</td>
-                            <td><a href="~/Inspector/Edit/@inspector.InspectorId">Редактировать</a></td>
+                            @Html.Partial("AdminActions", inspector.InspectorId)
                         </tr>
                     }
                 </tbody>
@@ -85,7 +85,10 @@
                         <th>Тип нарушения</th>
                         <th>Задолженность</th>
                         <th>Дедлайн исправления</th>
-                        <th>Действие</th>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <th>Действие</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +99,7 @@
                             <td>@violationType.Name</td>
                             <td>@violationType.PenaltyAmount</td>
                             <td>@violationType.CorrectionPeriodDays</td>
-                            <td><a href="~/ViolationType/Edit/@violationType.ViolationTypeId">Редактировать</a></td>
+                            @Html.Partial("AdminActions", violationType.ViolationTypeId)
                         </tr>
                     }
                 </tbody>
@@ -122,7 +125,10 @@
                     <th>Дедлайн исправления</th>
                     <th>Статус Оплаты</th>
                     <th>Статус Исправления</th>
-                    <th>Действие</th>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <th>Действие</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -141,7 +147,7 @@
                         <td>@inspection.CorrectionDeadline</td>
                         <td>@inspection.PaymentStatus</td>
                         <td>@inspection.CorrectionStatus</td>
-                        <td><a href="~/Inspection/Edit/@inspection.InspectionId">Редактировать</a></td>
+                        @Html.Partial("AdminActions", inspection.InspectionId)
                     </tr>
                 }
             </tbody>
