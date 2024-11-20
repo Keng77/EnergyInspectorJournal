@@ -1,0 +1,14 @@
+﻿@model int
+
+@{
+    var user = Context.User;
+}
+
+@if (!user.IsInRole("Admin"))
+{
+    <td>
+        <a href="/Inspections/Edit/@Model">Редактировать</a> |
+        <a href="/Inspections/Details/@Model">Подробно</a> |
+        <a href="/Inspections/Delete/@Model">Удалить</a>
+    </td>
+}
