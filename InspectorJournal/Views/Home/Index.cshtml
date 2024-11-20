@@ -15,7 +15,7 @@
                 <caption class="text-center">Предприятия</caption>
                 <thead class="table-dark">
                     <tr>
-                        <th>Код Предприятия</th>
+                        @* <th>Код Предприятия</th> *@
                         <th>Предприятие</th>
                         <th>Тип Собственности</th>
                         <th>Адрес</th>
@@ -31,13 +31,13 @@
                     @foreach (var enterprise in Model.Enterprises)
                     {
                         <tr>
-                            <td>@enterprise.EnterpriseId</td>
+                            @* <td>@enterprise.EnterpriseId</td> *@
                             <td>@enterprise.Name</td>
                             <td>@enterprise.OwnershipType</td>
                             <td>@enterprise.Address</td>
                             <td>@enterprise.DirectorName</td>
                             <td>@enterprise.DirectorPhone</td>
-                            @Html.Partial("AdminActions", enterprise.EnterpriseId)
+                           @*  @Html.Partial("AdminActions", enterprise.EnterpriseId) *@
                         </tr>
                     }
                 </tbody>
@@ -52,7 +52,7 @@
                 <caption class="text-center">Инспектора</caption>
                 <thead class="table-dark">
                     <tr>
-                        <th>Код Инспектора</th>
+                        @* <th>Код Инспектора</th> *@
                         <th>Проверяющий</th>
                         <th>Департамент</th>
                         @if (User.IsInRole("admin"))
@@ -65,10 +65,10 @@
                     @foreach (var inspector in Model.Inspectors)
                     {
                         <tr>
-                            <td>@inspector.InspectorId</td>
+                            @* <td>@inspector.InspectorId</td> *@
                             <td>@inspector.FullName</td>
                             <td>@inspector.Department</td>
-                            @Html.Partial("AdminActions", inspector.InspectorId)
+                            @* @Html.Partial("AdminActions", inspector.InspectorId) *@
                         </tr>
                     }
                 </tbody>
@@ -81,7 +81,7 @@
                 <caption class="text-center">Нарушения</caption>
                 <thead class="table-dark">
                     <tr>
-                        <th>Код Нарушения</th>
+                        @* <th>Код Нарушения</th> *@
                         <th>Тип нарушения</th>
                         <th>Задолженность</th>
                         <th>Дедлайн исправления</th>
@@ -95,11 +95,11 @@
                     @foreach (var violationType in Model.ViolationTypes)
                     {
                         <tr>
-                            <td>@violationType.ViolationTypeId</td>
+                            @* <td>@violationType.ViolationTypeId</td> *@
                             <td>@violationType.Name</td>
                             <td>@violationType.PenaltyAmount</td>
                             <td>@violationType.CorrectionPeriodDays</td>
-                            @Html.Partial("AdminActions", violationType.ViolationTypeId)
+                            @* @Html.Partial("AdminActions", violationType.ViolationTypeId) *@
                         </tr>
                     }
                 </tbody>
@@ -113,7 +113,7 @@
             <caption class="text-center">Проверки</caption>
             <thead class="table-dark">
                 <tr>
-                    <th>Код проверки</th>
+                    @* <th>Код проверки</th> *@
                     <th>Инспектор</th>
                     <th>Предприятие</th>
                     <th>Дата Проверки</th>
@@ -135,7 +135,7 @@
                 @foreach (var inspection in Model.Inspections)
                 {
                     <tr>
-                        <td>@inspection.InspectionId</td>
+                        @* <td>@inspection.InspectionId</td> *@
                         <td>@inspection.Inspector</td>
                         <td>@inspection.Enterprise</td>
                         <td>@inspection.InspectionDate</td>
@@ -147,7 +147,7 @@
                         <td>@inspection.CorrectionDeadline</td>
                         <td>@inspection.PaymentStatus</td>
                         <td>@inspection.CorrectionStatus</td>
-                        @Html.Partial("AdminActions", inspection.InspectionId)
+                       @*  @Html.Partial("AdminActions", inspection.InspectionId) *@
                     </tr>
                 }
             </tbody>

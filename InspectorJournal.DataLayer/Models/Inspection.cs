@@ -10,15 +10,15 @@ namespace InspectorJournal.DataLayer.Models
         public int InspectionId { get; set; }
 
         [ForeignKey("Inspector")]
-        [Display(Name = "Код Испектора")]
+        [Display(Name = "Инспектор")]
         public int InspectorId { get; set; }
 
         [ForeignKey("Enterprise")]
-        [Display(Name = "Код Предприятия")]
+        [Display(Name = "Предприятие")]
         public int EnterpriseId { get; set; }
 
         [ForeignKey("ViolationType")]
-        [Display(Name = "Код Нарушения")]
+        [Display(Name = "Тип нарушения")]
         public int ViolationTypeId { get; set; }
 
         [Display(Name = "Дата Проверки")]
