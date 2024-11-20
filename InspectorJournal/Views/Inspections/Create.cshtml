@@ -15,6 +15,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
+                <label asp-for="InspectorId" class="control-label"></label>
+                <select asp-for="InspectorId" class="form-control" asp-items="ViewBag.InspectorId"></select>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="EnterpriseId" class="control-label"></label>
                 <select asp-for="EnterpriseId" class="form-control" asp-items="ViewBag.EnterpriseId"></select>
             </div>
@@ -22,11 +27,6 @@
             <div class="form-group">
                 <label asp-for="ViolationTypeId" class="control-label"></label>
                 <select asp-for="ViolationTypeId" class="form-control" asp-items="ViewBag.ViolationTypeId"></select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="InspectorId" class="control-label"></label>
-                <select asp-for="InspectorId" class="form-control" asp-items="ViewBag.InspectorId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="InspectionDate" class="control-label"></label>
@@ -38,6 +38,12 @@
                 <label asp-for="ProtocolNumber" class="control-label"></label>
                 <input asp-for="ProtocolNumber" class="form-control" />
                 <span asp-validation-for="ProtocolNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ResponsiblePerson" class="control-label"></label>
+                <input asp-for="ResponsiblePerson" class="form-control" />
+                <span asp-validation-for="ResponsiblePerson" class="text-danger"></span>
             </div>
 
             <div class="form-group">

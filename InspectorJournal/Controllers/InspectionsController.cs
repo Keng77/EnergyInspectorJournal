@@ -111,7 +111,6 @@ namespace InspectorJournal.Controllers
             inspection.Enterprise = enterprise;
             inspection.Inspector = inspector;
             inspection.ViolationType = violationType;
-            inspection.ResponsiblePerson = inspector.FullName;
             _context.Add(inspection);
             await _context.SaveChangesAsync();
 

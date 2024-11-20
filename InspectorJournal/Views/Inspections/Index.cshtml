@@ -1,7 +1,7 @@
 ﻿@model InspectionsViewModel
 
 @{
-    ViewData["Title"] = "Список проверок";
+    ViewData["Title"] = "Проверки";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var user = Context.User;
     string EnterpriseName = Model.FilterInspectionViewModel?.Enterprise ?? "";
@@ -9,7 +9,7 @@
     decimal? PenaltyAmount = Model.FilterInspectionViewModel?.PenaltyAmount;
 }
 
-<h2>Операции с проверками</h2>
+<h2>Список проверок</h2>
 
 
 @if (user.IsInRole("Admin"))

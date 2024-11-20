@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<InspectorJournal.DataLayer.Models.Enterprise>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Предприятия";
 }
 
-<h1>Index</h1>
+<h1>Список предприятий</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Создать</a>
 </p>
 <table class="table">
     <thead>
@@ -48,11 +48,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DirectorPhone)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EnterpriseId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EnterpriseId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EnterpriseId">Delete</a>
-            </td>
+                @Html.Partial("AdminActions", item.EnterpriseId)
         </tr>
 }
     </tbody>
