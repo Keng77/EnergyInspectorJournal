@@ -1,7 +1,10 @@
-﻿@model IEnumerable<InspectorJournal.DataLayer.Models.Enterprise>
+﻿@model EnterprisesViewModel
 
 @{
     ViewData["Title"] = "Предприятия";
+    var user = Context.User;
+    string EnterpriseName = Model.Name ?? "";
+    string EnterpriseAddress = Model.Address ?? "";
 }
 
 <h1>Список предприятий</h1>
@@ -9,11 +12,25 @@
 <p>
     <a asp-action="Create">Создать</a>
 </p>
+
+@using (Html.BeginForm("Index", "Enterprises", FormMethod.Get))
+{
+    <fieldset>
+        Название предприятия: @Html.TextBox("EnterpriseName", EnterpriseName)
+        Адресс: @Html.TextBox("EnterpriseAddress", EnterpriseAddress)
+        <input type="submit" value="Найти" />
+    </fieldset>
+}
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-action="Index" asp-route-sortOrder=@Model.SortViewModel.EnterpriseNameSort
+                asp-route-EnterpriseName="@EnterpriseName"
+                asp-route-EnterpriseAddress="@EnterpriseAddress">
+                    @Html.DisplayNameFor(model => model.Name)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OwnershipType)
@@ -31,7 +48,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Enterprises) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -53,3 +70,9 @@
 }
     </tbody>
 </table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-EnterpriseName="@EnterpriseName"
+           page-url-EnterpriseAddress="@EnterpriseAddress"
+           page-url-sortOrder="@(Model.SortViewModel.CurrentState)"></page-link>
+

@@ -23,7 +23,7 @@
 @using (Html.BeginForm("Index", "Inspections", FormMethod.Get))
 {
     <fieldset>
-        Предприятие: @Html.TextBox("Enterprise", EnterpriseName)
+        Название предприятия: @Html.TextBox("Enterprise", EnterpriseName)
         Тип нарушения: @Html.TextBox("ViolationType", ViolationType)
         Задолженность > @Html.TextBox("PenaltyAmount", PenaltyAmount)
         <input type="submit" value="Найти" />

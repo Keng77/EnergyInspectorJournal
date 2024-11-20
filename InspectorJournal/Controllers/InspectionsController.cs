@@ -284,6 +284,7 @@ namespace InspectorJournal.Controllers
         {
             return _context.Inspections.Any(e => e.InspectionId == id);
         }
+
         private static IQueryable<Inspection> Sort_Search(IQueryable<Inspection> inspections, SortState sortOrder, string searchEnterpriseName, string searchViolationType, decimal searchPenaltyAmount)
         {
             // Применяем сортировку
