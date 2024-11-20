@@ -1,0 +1,68 @@
+﻿@model Inspection
+
+@{
+    ViewData["Title"] = "Удалить";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удаление</h2>
+
+<h3>Вы уверены, что хотите удалить эту запись?</h3>
+<div>
+    <h4>Проверка</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Inspector.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Inspector.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Enterprise.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Enterprise.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ViolationType.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ViolationType.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ResponsiblePerson)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ResponsiblePerson)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InspectionDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InspectionDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProtocolNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProtocolNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PenaltyAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PenaltyAmount)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="InspectionId" />
+        <input type="hidden" name="sortOrder" value="@ViewData["SortOrder"]" />
+        <input type="hidden" name="PenaltyAmount" value="@ViewData["PenaltyAmount"]" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["SortOrder"]" asp-route-PenaltyAmount="@ViewData["PenaltyAmount"]">
+            Вернуться к списку
+        </a>
+    </form>
+</div>
