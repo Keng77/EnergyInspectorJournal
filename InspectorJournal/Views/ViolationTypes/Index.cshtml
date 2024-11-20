@@ -1,7 +1,9 @@
-﻿@model IEnumerable<InspectorJournal.DataLayer.Models.ViolationType>
+﻿@model ViolationTypesViewModel
 
 @{
     ViewData["Title"] = "Нарушения";
+    var user = Context.User;
+    string ViolationTypeName = Model.Name ?? "";
 }
 
 <h1>Типы нарушений</h1>
@@ -9,11 +11,23 @@
 <p>
     <a asp-action="Create">Создать</a>
 </p>
+
+@using (Html.BeginForm("Index", "ViolationTypes", FormMethod.Get))
+{
+    <fieldset>
+        Тип нарушения: @Html.TextBox("ViolationTypeName", ViolationTypeName)
+        <input type="submit" value="Найти" />
+    </fieldset>
+}
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-action="Index" asp-route-sortOrder=@Model.SortViewModel.ViolationTypeSort
+                   asp-route-ViolationTypeName="@ViolationTypeName">
+                    @Html.DisplayNameFor(model => model.Name)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PenaltyAmount)
@@ -25,7 +39,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.ViolationTypes) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -41,3 +55,7 @@
 }
     </tbody>
 </table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-ViolationTypeName="@ViolationTypeName"
+           page-url-sortOrder="@(Model.SortViewModel.CurrentState)"></page-link>

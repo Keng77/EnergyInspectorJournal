@@ -33,7 +33,14 @@
 <table class="table table-striped table-bordered">
     <thead class="table-dark">
         <tr>
-            <th>@Html.DisplayNameFor(model => model.FilterInspectionViewModel.Inspector)</th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.InspectorNameSort"
+                   asp-route-Enterprise="@EnterpriseName"
+                   asp-route-ViolationType="@ViolationType"
+                   asp-route-PenaltyAmount="@PenaltyAmount">
+                    @Html.DisplayNameFor(model => model.FilterInspectionViewModel.Inspector)
+                </a>
+            </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.EnterpriseNameSort"
                    asp-route-Enterprise="@EnterpriseName"

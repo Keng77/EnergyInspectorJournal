@@ -296,6 +296,12 @@ namespace InspectorJournal.Controllers
                 case SortState.EnterpriseNameDesc:
                     inspections = inspections.OrderByDescending(s => s.Enterprise.Name);
                     break;
+                case SortState.InspectorNameAsc:
+                    inspections = inspections.OrderBy(s => s.Inspector.FullName);
+                    break;
+                case SortState.InspectorNameDesc:
+                    inspections = inspections.OrderByDescending(s => s.Inspector.FullName);
+                    break;
                 case SortState.ViolationTypeAsc:
                     inspections = inspections.OrderBy(s => s.ViolationType.Name);
                     break;

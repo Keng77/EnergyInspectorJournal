@@ -1,7 +1,9 @@
-﻿@model IEnumerable<InspectorJournal.DataLayer.Models.Inspector>
+﻿@model InspectorsViewModel
 
 @{
     ViewData["Title"] = "Инспектора";
+    var user = Context.User;
+    string InspectorName = Model.FullName ?? "";
 }
 
 <h1>Список инспекторов</h1>
@@ -9,11 +11,25 @@
 <p>
     <a asp-action="Create">Создать</a>
 </p>
+
+@using (Html.BeginForm("Index", "Inspectors", FormMethod.Get))
+{
+    <fieldset>
+        Инспектор: @Html.TextBox("InspectorName", InspectorName)
+        <input type="submit" value="Найти" />
+    </fieldset>
+}
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.SortViewModel.InspectorNameSort"
+                   asp-route-InspectorName="@InspectorName">
+                    @Html.DisplayNameFor(model => model.FullName)
+                </a>
+
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Department)
@@ -22,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Inspectors) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
@@ -35,3 +51,10 @@
 }
     </tbody>
 </table>
+
+<page-link page-model="Model.PageViewModel"
+           page-action="Index"
+           page-url-InspectorName="@InspectorName"
+           page-url-sortOrder="@(Model.SortViewModel.CurrentState)">
+</page-link>
+

@@ -7,22 +7,60 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InspectorJournal.DataLayer.Data;
 using InspectorJournal.DataLayer.Models;
+using InspectorJournal.Infrastructure.Filters;
+using InspectorJournal.ViewModels;
+using Microsoft.IdentityModel.Tokens;
+using InspectorJournal.Infrastructure;
 
 namespace InspectorJournal.Controllers
 {
     public class ViolationTypesController : Controller
     {
         private readonly InspectionsDbContext _context;
+        private readonly int pageSize = 10;   // количество элементов на странице
 
-        public ViolationTypesController(InspectionsDbContext context)
+        public ViolationTypesController(InspectionsDbContext context, IConfiguration appConfig = null)
         {
             _context = context;
+            if (appConfig != null)
+            {
+                pageSize = int.Parse(appConfig["Parameters:PageSize"]);
+            }
         }
 
         // GET: ViolationTypes
-        public async Task<IActionResult> Index()
+        [SetToSession("ViolationType")] // Фильтр действий для сохранения в сессию параметров отбора
+        public async Task<IActionResult> Index(string ViolationTypeName = "",  SortState sortOrder = SortState.No, int page = 1)
         {
-            return View(await _context.ViolationTypes.ToListAsync());
+            // Если параметры фильтрации пустые, считываем их из сессии
+            if (string.IsNullOrEmpty(ViolationTypeName))
+            {
+                var sessionData = Infrastructure.SessionExtensions.Get(HttpContext.Session, "ViolationType");
+                if (sessionData != null)
+                {
+                    var violationTypesViewModel = Transformations.DictionaryToObject<ViolationTypesViewModel>(sessionData);
+                    ViolationTypeName = violationTypesViewModel?.Name ?? "";
+                }
+            }
+
+            // Сортировка и фильтрация данных
+            IQueryable<ViolationType> violationTypesContext = _context.ViolationTypes;
+            violationTypesContext = Sort_Search(violationTypesContext, sortOrder, ViolationTypeName);
+
+            // Разбиение на страницы
+            var count = violationTypesContext.Count();
+            var violations = violationTypesContext.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // Формирование модели для передачи представлению
+            ViolationTypesViewModel viewModel = new()
+            {
+                ViolationTypes = violations,
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                SortViewModel = new SortViewModel(sortOrder),
+                Name = ViolationTypeName,
+            };
+
+            return View(viewModel);
         }
 
         // GET: ViolationTypes/Details/5
@@ -50,8 +88,6 @@ namespace InspectorJournal.Controllers
         }
 
         // POST: ViolationTypes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ViolationTypeId,Name,PenaltyAmount,CorrectionPeriodDays")] ViolationType violationType)
@@ -82,8 +118,6 @@ namespace InspectorJournal.Controllers
         }
 
         // POST: ViolationTypes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ViolationTypeId,Name,PenaltyAmount,CorrectionPeriodDays")] ViolationType violationType)
@@ -152,6 +186,27 @@ namespace InspectorJournal.Controllers
         private bool ViolationTypeExists(int id)
         {
             return _context.ViolationTypes.Any(e => e.ViolationTypeId == id);
+        }
+
+        private static IQueryable<ViolationType> Sort_Search(IQueryable<ViolationType> violationTypes, SortState sortOrder, string searchviolationTypenName)
+        {
+            // Применяем сортировку
+            switch (sortOrder)
+            {
+                case SortState.ViolationTypeAsc:
+                    violationTypes = violationTypes.OrderBy(s => s.Name);
+                    break;
+                case SortState.ViolationTypeDesc:
+                    violationTypes = violationTypes.OrderByDescending(s => s.Name);
+                    break;
+            }
+
+            // Применяем фильтры
+            violationTypes = violationTypes.Where(o =>
+                                                 (string.IsNullOrEmpty(searchviolationTypenName) || o.Name.Contains(searchviolationTypenName))
+                                                 );
+
+            return violationTypes;
         }
     }
 }

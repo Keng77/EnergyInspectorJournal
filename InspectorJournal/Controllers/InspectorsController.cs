@@ -7,23 +7,61 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InspectorJournal.DataLayer.Data;
 using InspectorJournal.DataLayer.Models;
+using InspectorJournal.ViewModels;
+using InspectorJournal.Infrastructure.Filters;
+using InspectorJournal.Infrastructure;
 
 namespace InspectorJournal.Controllers
 {
     public class InspectorsController : Controller
     {
         private readonly InspectionsDbContext _context;
+        private readonly int pageSize = 10;   // количество элементов на странице
 
-        public InspectorsController(InspectionsDbContext context)
+        public InspectorsController(InspectionsDbContext context, IConfiguration appConfig = null)
         {
             _context = context;
+            if (appConfig != null)
+            {
+                pageSize = int.Parse(appConfig["Parameters:PageSize"]);
+            }
         }
 
         // GET: Inspectors
-        public async Task<IActionResult> Index()
+        [SetToSession("Inspector")] // Фильтр действий для сохранения параметров в сессии
+        public IActionResult Index(string InspectorName = "", SortState sortOrder = SortState.No, int page = 1)
         {
-            return View(await _context.Inspectors.ToListAsync());
+            // Если фильтр пустой, восстанавливаем данные из сессии
+            if (string.IsNullOrWhiteSpace(InspectorName))
+            {
+                var sessionData = Infrastructure.SessionExtensions.Get(HttpContext.Session, "Inspector");
+                if (sessionData != null)
+                {
+                    var inspectorViewModel = Transformations.DictionaryToObject<InspectorsViewModel>(sessionData);
+                    InspectorName = inspectorViewModel?.FullName ?? "";
+                }
+            }
+
+            // Сортировка и фильтрация
+            IQueryable<Inspector> inspectorsContext = _context.Inspectors;
+            inspectorsContext = Sort_Search(inspectorsContext, sortOrder, InspectorName);
+
+            // Пагинация
+            var count = inspectorsContext.Count();
+            var inspectors = inspectorsContext.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // Формирование ViewModel
+            InspectorsViewModel viewModel = new()
+            {
+                Inspectors = inspectors,
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                SortViewModel = new SortViewModel(sortOrder),
+                FullName = InspectorName
+            };
+
+            return View(viewModel);
         }
+
 
         // GET: Inspectors/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -50,8 +88,6 @@ namespace InspectorJournal.Controllers
         }
 
         // POST: Inspectors/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InspectorId,FullName,Department")] Inspector inspector)
@@ -82,8 +118,6 @@ namespace InspectorJournal.Controllers
         }
 
         // POST: Inspectors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("InspectorId,FullName,Department")] Inspector inspector)
@@ -152,6 +186,26 @@ namespace InspectorJournal.Controllers
         private bool InspectorExists(int id)
         {
             return _context.Inspectors.Any(e => e.InspectorId == id);
+        }
+
+        private static IQueryable<Inspector> Sort_Search(IQueryable<Inspector> inspectors, SortState sortOrder, string searchInspectorName)
+        {
+            // Применяем сортировку
+            switch (sortOrder)
+            {
+                case SortState.InspectorNameAsc:
+                    inspectors = inspectors.OrderBy(s => s.FullName);
+                    break;
+                case SortState.InspectorNameDesc:
+                    inspectors = inspectors.OrderByDescending(s => s.FullName);
+                    break;
+            }
+
+            // Применяем фильтры
+            inspectors = inspectors.Where(o =>
+                                         (string.IsNullOrEmpty(searchInspectorName) || o.FullName.Contains(searchInspectorName)));
+
+            return inspectors;
         }
     }
 }
