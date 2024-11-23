@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -169,24 +170,22 @@ namespace InspectorJournal.Controllers
                 ApplicationUser user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
-                  
                     var oldRoles = await _userManager.GetRolesAsync(user);
 
                     if (oldRoles.Count > 0)
                     {
                         await _userManager.RemoveFromRolesAsync(user, oldRoles);
-
                     }
-                    
+
                     var newRole = model.UserRole;
                     if (newRole.Length > 0)
                     {
                         await _userManager.AddToRoleAsync(user, newRole);
                     }
+
                     user.Email = model.Email;
                     user.UserName = model.UserName;
                     user.RegistrationDate = model.RegistrationDate;
-
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
@@ -195,6 +194,7 @@ namespace InspectorJournal.Controllers
                     }
                     else
                     {
+                        // Добавляем ошибки в ModelState
                         foreach (var error in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
@@ -202,8 +202,14 @@ namespace InspectorJournal.Controllers
                     }
                 }
             }
+
+            // При возникновении ошибки, обновляем список ролей для отображения в форме
+            var allRoles = await _roleManager.Roles.ToListAsync();
+            ViewBag.UserRole = new SelectList(allRoles, "Name", "Name", model.UserRole);
+
             return View(model);
         }
+
 
         [HttpPost]
         public async Task<ActionResult> Delete(string id)

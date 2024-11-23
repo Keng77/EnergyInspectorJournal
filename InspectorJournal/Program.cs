@@ -79,6 +79,20 @@ public class Program
         app.UseDbInitializer();  // Это вызывает вашу инициализацию базы данных
 
         // Маршруты
+        // Перенаправление на страницу входа, если пользователь не аутентифицирован
+        app.MapGet("/", async context =>
+        {
+            if (!context.User.Identity.IsAuthenticated)
+            {
+                context.Response.Redirect("/Identity/Account/Login");  // Путь на страницу входа
+            }
+            else
+            {
+                context.Response.Redirect("/Home/Index");  // Путь на Index если пользователь аутентифицирован
+            }
+        });
+
+        // Настройка стандартного маршрута
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");

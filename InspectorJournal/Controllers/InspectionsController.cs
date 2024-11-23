@@ -3,12 +3,14 @@ using InspectorJournal.DataLayer.Models;
 using InspectorJournal.Infrastructure;
 using InspectorJournal.Infrastructure.Filters;
 using InspectorJournal.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace InspectorJournal.Controllers
 {
+    [Authorize]
     public class InspectionsController : Controller
     {
         private readonly InspectionsDbContext _context;

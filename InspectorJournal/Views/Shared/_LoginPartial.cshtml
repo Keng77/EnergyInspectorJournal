@@ -8,26 +8,29 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="btn btn-outline-secondary">
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Профиль" class="btn btn-outline-secondary">
                     <i class="bi bi-person-circle"></i> @UserManager.GetUserName(User)
                 </a>
             </li>
 
             @if (User.IsInRole("Admin"))
             {
+                <span class="mx-2">|</span>
                 <li>
-                    <a asp-area="" asp-controller="Users" asp-action="Index" title="Пользователи" class="btn btn-outline-primary">
+                    <a asp-area="" asp-controller="Users" asp-action="Index" title="Пользователи" class="btn btn-outline-info">
                         <i class="bi bi-person-badge"></i> Пользователи
                     </a>
                 </li>
             }
+            <span class="mx-2">|</span>
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Сменить пароль" class="btn btn-outline-warning">
+                <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Сменить пароль" class="btn btn-outline-success">
                     <i class="bi bi-lock"></i> Сменить пароль
                 </a>
             </li>
+            <span class="mx-2">|</span>
             <li>
-                <button type="submit" class="btn btn-outline-danger navbar-btn navbar-link">
+                <button type="submit" title="Выйти" class="btn btn-outline-danger navbar-btn navbar-link">
                     <i class="bi bi-box-arrow-right"></i> Выход
                 </button>
             </li>
@@ -42,6 +45,7 @@ else
                 <i class="bi bi-box-arrow-in-right"></i> Вход
             </a>
         </li>
+        <span class="mx-2">|</span>
         <li>
             <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-secondary">
                 <i class="bi bi-person-plus"></i> Регистрация

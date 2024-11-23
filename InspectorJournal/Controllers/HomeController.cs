@@ -1,12 +1,14 @@
 using InspectorJournal.DataLayer.Data;
 using InspectorJournal.Models;
 using InspectorJournal.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace InspectorJournal.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly InspectionsDbContext _context;

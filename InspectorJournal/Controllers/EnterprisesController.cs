@@ -10,9 +10,11 @@ using InspectorJournal.DataLayer.Models;
 using InspectorJournal.Infrastructure.Filters;
 using InspectorJournal.ViewModels;
 using InspectorJournal.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InspectorJournal.Controllers
 {
+    [Authorize]
     public class EnterprisesController : Controller
     {
         private readonly InspectionsDbContext _context;

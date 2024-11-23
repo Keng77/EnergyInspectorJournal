@@ -11,9 +11,11 @@ using InspectorJournal.Infrastructure.Filters;
 using InspectorJournal.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 using InspectorJournal.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InspectorJournal.Controllers
 {
+    [Authorize]
     public class ViolationTypesController : Controller
     {
         private readonly InspectionsDbContext _context;

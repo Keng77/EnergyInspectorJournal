@@ -48,21 +48,6 @@ namespace InspectorJournal.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
-        {
-            if (!string.IsNullOrEmpty(ErrorMessage))
-            {
-                ModelState.AddModelError(string.Empty, ErrorMessage);
-            }
-
-            returnUrl = returnUrl ?? Url.Content("~/");
-
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ReturnUrl = returnUrl;
-        }
-
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -93,13 +78,16 @@ namespace InspectorJournal.Areas.Identity.Pages.Account
                     }
                 }
 
-                // If the login attempt was not successful
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                // If the login attempt was not successful, add a model error linked to the UserNameOrEmail field
+                ModelState.AddModelError("Input.UserNameOrEmail", "Неверный логин или пароль.");
+                ModelState.AddModelError("Input.Password", "Неверный логин или пароль.");
+
                 return Page();
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
     }
 }
