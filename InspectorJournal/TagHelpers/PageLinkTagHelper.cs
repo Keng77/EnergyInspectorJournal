@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;
 
-namespace InspectorJournal.TagHelpers
+namespace FuelStation.TagHelpers
 {
     public class PageLinkTagHelper : TagHelper
     {

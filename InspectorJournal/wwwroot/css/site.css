@@ -1,14 +1,6 @@
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
+
+
 
 /* Carousel */
 .carousel-caption p {
@@ -31,5 +23,208 @@ body {
     /* Hide captions */
     .carousel-caption {
         display: none;
+    }
+}
+/* Сдвигаем div влево */
+.div-inspections {
+    margin-left: -50px; /* Уменьшение отступа слева */
+}
+/* Медиазапрос для уменьшения размера таблицы на малых экранах */
+@media (max-width: 768px) {
+    .inspections-table th, .inspections-table td {
+        font-size: 0.8rem; /* Уменьшаем размер шрифта */
+    }
+
+    .inspections-table {
+        font-size: 0.8rem; /* Уменьшаем размер шрифта всей таблицы */
+    }
+}
+
+/* Медиазапрос для еще меньших экранов */
+@media (max-width: 576px) {
+    .inspections-table th, .inspections-table td {
+        font-size: 0.7rem; /* Еще больше уменьшаем размер шрифта */
+    }
+
+    .inspections-table {
+        font-size: 0.7rem; /* Еще уменьшаем размер шрифта всей таблицы */
+    }
+}
+
+.sort-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.sort-link:hover {
+    color: #0056b3;
+}
+
+.sort-indicator {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+
+/* Основной стиль для пагинации */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+/* Стили для контейнера пагинации */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+    margin: 20px 0;
+}
+
+    /* Стили для элементов пагинации */
+    .pagination li {
+        margin: 0 5px;
+    }
+
+        /* Стили для ссылок пагинации (кнопки) */
+        .pagination li a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px; /* Закругленные края для кнопок */
+            background-color: #fff;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            transition: background-color 0.3s, border-color 0.3s; /* Плавный переход */
+        }
+
+            /* При наведении на кнопку */
+            .pagination li a:hover {
+                background-color: #007bff;
+                color: #fff;
+                border-color: #007bff;
+            }
+
+    /* Стили для активной страницы */
+    .pagination .active a {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+        cursor: default; /* Блокирует возможность клика по активной кнопке */
+    }
+
+    /* Стили для неактивных страниц */
+    .pagination .disabled a {
+        color: #6c757d;
+        background-color: #f8f9fa;
+        border-color: #ddd;
+        cursor: not-allowed;
+    }
+
+    /* Стили для предыдущей и следующей страницы */
+    .pagination .prev a, .pagination .next a {
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+
+    /* Стили для ссылки "Следующая" и "Предыдущая" */
+    .pagination .next a, .pagination .prev a {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+    }
+
+        /* При наведении на ссылки "Следующая" и "Предыдущая" */
+        .pagination .next a:hover, .pagination .prev a:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+/* Общий стиль для формы */
+.form-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стиль для fieldset */
+.form-container fieldset {
+    border: none;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Стиль для legend */
+.form-container legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Общий стиль для label */
+.form-container label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Стиль для текстовых полей */
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Стиль при фокусе на текстовых полях */
+.form-container input[type="text"]:focus,
+.form-container input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Стиль для кнопки submit */
+.form-container input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Стиль кнопки при наведении */
+.form-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Медиазапрос для адаптивности */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"],
+    .form-container input[type="submit"] {
+        font-size: 0.9rem;
     }
 }

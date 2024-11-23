@@ -33,7 +33,28 @@
             CurrentState = sortOrder;
         }
 
+        public string GetSortIndicator(SortState state)
+        {
+            return CurrentState == state ? "▲" :
+                CurrentState == InvertState(state) ? "▼" : "";
+        }
 
+        private SortState InvertState(SortState state)
+        {
+            return state switch
+            {
+                SortState.EnterpriseNameAsc => SortState.EnterpriseNameDesc,
+                SortState.EnterpriseNameDesc => SortState.EnterpriseNameAsc,
+                SortState.InspectorNameAsc => SortState.InspectorNameDesc,
+                SortState.InspectorNameDesc => SortState.InspectorNameAsc,
+                SortState.ViolationTypeAsc => SortState.ViolationTypeDesc,
+                SortState.ViolationTypeDesc => SortState.ViolationTypeAsc,
+                SortState.PenaltyAmountAsc => SortState.PenaltyAmountDesc,
+                SortState.PenaltyAmountDesc => SortState.PenaltyAmountAsc,
+                _ => state
+            };
+        }
 
     }
+
 }

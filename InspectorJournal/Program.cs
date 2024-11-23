@@ -1,12 +1,10 @@
 using InspectorJournal.Data;
+using InspectorJournal.DataLayer.Data;
 using InspectorJournal.Middleware;
 using InspectorJournal.Models;
-using InspectorJournal.DataLayer.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using InspectorJournal.DataLayer.Models;
-using InspectorJournal.ViewModels;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 public class Program
 {
@@ -17,11 +15,11 @@ public class Program
         var services = builder.Services;
 
         // Внедрение зависимости для доступа к БД с использованием EF
-        string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<InspectionsDbContext>(options => options.UseSqlServer(connectionString));
 
-        string connectionUsers = builder.Configuration.GetConnectionString("IdentityConnection");
+        var connectionUsers = builder.Configuration.GetConnectionString("IdentityConnection");
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionUsers));
 
         // Настройка Identity
@@ -40,6 +38,13 @@ public class Program
             options.IdleTimeout = TimeSpan.FromSeconds(3600);
             options.Cookie.IsEssential = true;
         });
+        services.Configure<CookiePolicyOptions>(options =>
+        {
+            // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            options.CheckConsentNeeded = context => true;
+            options.MinimumSameSitePolicy = SameSiteMode.None;
+        });
+        services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
         services.AddHttpContextAccessor();
         services.AddControllersWithViews();
         services.AddRazorPages();
@@ -65,6 +70,7 @@ public class Program
 
         // Важно: вызов app.UseDbInitializer должен быть после app.UseRouting(), но до app.MapControllerRoute()
         app.UseRouting();
+        app.UseAuthentication();
         app.UseAuthorization();
         // Регистрация middleware для инициализации базы данных
         app.UseDbInitializer();  // Это вызывает вашу инициализацию базы данных

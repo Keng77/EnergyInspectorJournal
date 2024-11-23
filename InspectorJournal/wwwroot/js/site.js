@@ -2,3 +2,11 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+    document.getElementById('searchToggleBtn').addEventListener('click', function() {
+        var form = document.getElementById('searchForm');
+    // Переключаем класс d-none, чтобы показать/скрыть форму
+    form.classList.toggle('d-none');
+    });
+
+

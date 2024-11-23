@@ -9,96 +9,133 @@
     decimal? PenaltyAmount = Model.FilterInspectionViewModel?.PenaltyAmount;
 }
 
-<h2>Список проверок</h2>
+<div class="container mt-4 @(user.IsInRole("Admin") ? "div-inspections" : "")">
+    <!-- Заголовок -->
+    <h2 class="mb-4 text-center">Список проверок</h2>
 
-
-@if (user.IsInRole("Admin"))
-{
-    <p>
-        <a asp-action="Create">Создать</a>
-    </p>
-}
-
-
-@using (Html.BeginForm("Index", "Inspections", FormMethod.Get))
-{
-    <fieldset>
-        Название предприятия: @Html.TextBox("Enterprise", EnterpriseName)
-        Тип нарушения: @Html.TextBox("ViolationType", ViolationType)
-        Задолженность > @Html.TextBox("PenaltyAmount", PenaltyAmount)
-        <input type="submit" value="Найти" />
-    </fieldset>
-}
-
-<table class="table table-striped table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.InspectorNameSort"
-                   asp-route-Enterprise="@EnterpriseName"
-                   asp-route-ViolationType="@ViolationType"
-                   asp-route-PenaltyAmount="@PenaltyAmount">
-                    @Html.DisplayNameFor(model => model.FilterInspectionViewModel.Inspector)
-                </a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.EnterpriseNameSort"
-                   asp-route-Enterprise="@EnterpriseName"
-                   asp-route-ViolationType="@ViolationType"
-                   asp-route-PenaltyAmount="@PenaltyAmount">
-                    Предприятие
-                </a>
-            </th>
-            <th>Дата Проверки</th>
-            <th>Номер Протокола</th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.ViolationTypeSort"
-                   asp-route-Enterprise="@EnterpriseName"
-                   asp-route-ViolationType="@ViolationType"
-                   asp-route-PenaltyAmount="@PenaltyAmount">
-                    Тип нарушения
-                </a>
-            </th>
-            <th>Ответственный</th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.PenaltyAmountSort"
-                   asp-route-Enterprise="@EnterpriseName"
-                   asp-route-ViolationType="@ViolationType"
-                   asp-route-PenaltyAmount="@PenaltyAmount">
-                    Задолженность
-                </a>
-            </th>
-            <th>Дедлайн Оплаты</th>
-            <th>Дедлайн Исправления</th>
-            <th>Статус Оплаты</th>
-            <th>Статус Исправления</th>
-            @if (user.IsInRole("Admin"))
-            {
-                <th>Действие</th>
-            }
-            
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var inspection in Model.Inspections)
+    <!-- Блок кнопок -->
+    <div class="d-flex mb-3 justify-content-between align-items-center">
+        @if (user.IsInRole("Admin"))
         {
-            <tr>
-                <td>@inspection.Inspector.FullName</td>
-                <td>@inspection.Enterprise.Name</td>
-                <td>@inspection.InspectionDate.ToShortDateString()</td>
-                <td>@inspection.ProtocolNumber</td>
-                <td>@inspection.ViolationType.Name</td>
-                <td>@inspection.ResponsiblePerson</td>
-                <td>@inspection.PenaltyAmount</td>
-                <td>@inspection.PaymentDeadline.ToShortDateString()</td>
-                <td>@inspection.CorrectionDeadline.ToShortDateString()</td>
-                <td>@inspection.PaymentStatus</td>
-                <td>@inspection.CorrectionStatus</td>
-                @Html.Partial("AdminActions", inspection.InspectionId)
-            </tr>
+            <!-- Кнопка "Создать" доступна только админам -->
+            <a class="btn btn-success" asp-action="Create">Создать</a>
         }
-    </tbody>
-</table>
+        <!-- Кнопка "Поиск" для всех пользователей -->
+        <button id="searchToggleBtn" class="btn btn-info me-auto">Поиск</button>
+    </div>
+
+    <!-- Контейнер с формой фильтрации -->
+    <div id="searchForm" class="d-none mt-3">
+        @using (Html.BeginForm("Index", "Inspections", FormMethod.Get))
+        {
+            <fieldset class="border p-4 rounded bg-light">
+                <legend class="w-auto">Фильтрация проверок</legend>
+                <div class="d-flex flex-wrap">
+                    <!-- Название предприятия -->
+                    <div class="form-group mr-3">
+                        <label for="Enterprise" class="form-label">Название предприятия:</label>
+                        @Html.TextBox("Enterprise", EnterpriseName, new { @class = "form-control" })
+                    </div>
+                    <!-- Тип нарушения -->
+                    <div class="form-group mr-3">
+                        <label for="ViolationType" class="form-label">Тип нарушения:</label>
+                        @Html.TextBox("ViolationType", ViolationType, new { @class = "form-control" })
+                    </div>
+                    <!-- Задолженность -->
+                    <div class="form-group mr-3">
+                        <label for="PenaltyAmount" class="form-label">Задолженность:</label>
+                        @Html.TextBox("PenaltyAmount", PenaltyAmount, new { @class = "form-control" })
+                    </div>
+                    <!-- Кнопка поиска -->
+                    <div class="form-group align-self-end">
+                        <button type="submit" class="btn btn-primary">Найти</button>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
+
+    <!-- Таблица проверок -->
+    <table class="table table-striped table-bordered table-hover inspections-table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.InspectorNameSort"
+                       asp-route-Enterprise="@EnterpriseName"
+                       asp-route-ViolationType="@ViolationType"
+                       asp-route-PenaltyAmount="@PenaltyAmount"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.FilterInspectionViewModel.Inspector)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.InspectorNameAsc))
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.EnterpriseNameSort"
+                       asp-route-Enterprise="@EnterpriseName"
+                       asp-route-ViolationType="@ViolationType"
+                       asp-route-PenaltyAmount="@PenaltyAmount"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.FilterInspectionViewModel.Enterprise)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.EnterpriseNameAsc))
+                    </a>
+                </th>
+                <th>Дата Проверки</th>
+                <th>Номер Протокола</th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.ViolationTypeSort"
+                       asp-route-Enterprise="@EnterpriseName"
+                       asp-route-ViolationType="@ViolationType"
+                       asp-route-PenaltyAmount="@PenaltyAmount"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.FilterInspectionViewModel.ViolationType)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.ViolationTypeAsc))
+                    </a>
+                </th>
+                <th>Ответственный</th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@Model.SortViewModel.PenaltyAmountSort"
+                       asp-route-Enterprise="@EnterpriseName"
+                       asp-route-ViolationType="@ViolationType"
+                       asp-route-PenaltyAmount="@PenaltyAmount"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.FilterInspectionViewModel.PenaltyAmount)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.PenaltyAmountAsc))
+                    </a>
+                </th>
+                <th>@Html.DisplayNameFor(model => model.FilterInspectionViewModel.PaymentDeadline)</th>
+                <th>@Html.DisplayNameFor(model => model.FilterInspectionViewModel.CorrectionDeadline)</th>
+                <th>@Html.DisplayNameFor(model => model.FilterInspectionViewModel.PaymentStatus)</th>
+                <th>@Html.DisplayNameFor(model => model.FilterInspectionViewModel.CorrectionStatus)</th>
+                @if (user.IsInRole("Admin"))
+                {
+                    <th>Действие</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inspection in Model.Inspections)
+            {
+                <tr>
+                    <td>@inspection.Inspector.FullName</td>
+                    <td>@inspection.Enterprise.Name</td>
+                    <td>@inspection.InspectionDate.ToShortDateString()</td>
+                    <td>@inspection.ProtocolNumber</td>
+                    <td>@inspection.ViolationType.Name</td>
+                    <td>@inspection.ResponsiblePerson</td>
+                    <td>@inspection.PenaltyAmount</td>
+                    <td>@inspection.PaymentDeadline.ToShortDateString()</td>
+                    <td>@inspection.CorrectionDeadline.ToShortDateString()</td>
+                    <td>@inspection.PaymentStatus</td>
+                    <td>@inspection.CorrectionStatus</td>
+                    @if (user.IsInRole("Admin"))
+                    {
+                        <admin-actions item-id="@inspection.InspectionId" id-name="inspectionId"></admin-actions>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <page-link page-model="Model.PageViewModel" page-action="Index"
            page-url-Enterprise="@EnterpriseName"

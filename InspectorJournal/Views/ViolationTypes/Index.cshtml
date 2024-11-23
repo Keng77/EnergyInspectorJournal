@@ -6,56 +6,83 @@
     string ViolationTypeName = Model.Name ?? "";
 }
 
-<h1>Типы нарушений</h1>
+<div class="container mt-4">
+    <!-- Заголовок -->
+    <h2 class="mb-4 text-center">Типы нарушений</h2>
 
-<p>
-    <a asp-action="Create">Создать</a>
-</p>
+    <!-- Блок кнопок -->
+    <div class="d-flex mb-3 justify-content-between align-items-center">
+        @if (user.IsInRole("Admin"))
+        {
+            <!-- Кнопка "Создать" доступна только админам -->
+            <a class="btn btn-success" asp-action="Create">Создать</a>
+        }
+        <!-- Кнопка "Поиск" -->
+        <button id="searchToggleBtn" class="btn btn-info me-auto">Поиск</button>
+    </div>
 
-@using (Html.BeginForm("Index", "ViolationTypes", FormMethod.Get))
-{
-    <fieldset>
-        Тип нарушения: @Html.TextBox("ViolationTypeName", ViolationTypeName)
-        <input type="submit" value="Найти" />
-    </fieldset>
-}
+    <!-- Контейнер с формой фильтрации -->
+    <div id="searchForm" class="d-none mt-3">
+        @using (Html.BeginForm("Index", "ViolationTypes", FormMethod.Get))
+        {
+            <fieldset class="border p-4 rounded bg-light">
+                <legend class="w-auto">Фильтрация типов нарушений</legend>
+                <div class="d-flex flex-wrap">
+                    <!-- Тип нарушения -->
+                    <div class="form-group mr-3">
+                        <label for="ViolationTypeName" class="form-label">Тип нарушения:</label>
+                        @Html.TextBox("ViolationTypeName", ViolationTypeName, new { @class = "form-control" })
+                    </div>
+                    <!-- Кнопка поиска -->
+                    <div class="form-group align-self-end">
+                        <button type="submit" class="btn btn-primary">Найти</button>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder=@Model.SortViewModel.ViolationTypeSort
-                   asp-route-ViolationTypeName="@ViolationTypeName">
-                    @Html.DisplayNameFor(model => model.Name)
-                </a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PenaltyAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CorrectionPeriodDays)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.ViolationTypes) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PenaltyAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CorrectionPeriodDays)
-            </td>
-                @Html.Partial("AdminActions", item.ViolationTypeId)
-        </tr>
-}
-    </tbody>
-</table>
+    <!-- Таблица типов нарушений -->
+    <table class="table table-striped table-bordered table-hover inspections-table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.SortViewModel.ViolationTypeSort"
+                       asp-route-ViolationTypeName="@ViolationTypeName"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.Name)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.ViolationTypeAsc))
+                    </a>
+                </th>
+                <th>@Html.DisplayNameFor(model => model.PenaltyAmount)</th>
+                <th>@Html.DisplayNameFor(model => model.CorrectionPeriodDays)</th>
+                @if (user.IsInRole("Admin"))
+                {
+                    <th>Действия</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ViolationTypes)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PenaltyAmount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CorrectionPeriodDays)</td>
+                    @if (user.IsInRole("Admin"))
+                    {
+                        <admin-actions item-id="@item.ViolationTypeId" id-name="ViolationTypeId"></admin-actions>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<page-link page-model="Model.PageViewModel" page-action="Index"
-           page-url-ViolationTypeName="@ViolationTypeName"
-           page-url-sortOrder="@(Model.SortViewModel.CurrentState)"></page-link>
+    <!-- Пагинация -->
+    <page-link page-model="Model.PageViewModel"
+               page-action="Index"
+               page-url-ViolationTypeName="@ViolationTypeName"
+               page-url-sortOrder="@(Model.SortViewModel.CurrentState)">
+    </page-link>
+</div>
