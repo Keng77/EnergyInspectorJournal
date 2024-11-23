@@ -65,7 +65,7 @@ public class Program
 
         // Важно: вызов app.UseDbInitializer должен быть после app.UseRouting(), но до app.MapControllerRoute()
         app.UseRouting();
-
+        app.UseAuthorization();
         // Регистрация middleware для инициализации базы данных
         app.UseDbInitializer();  // Это вызывает вашу инициализацию базы данных
 
