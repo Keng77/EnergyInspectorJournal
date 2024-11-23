@@ -15,10 +15,11 @@
         @if (user.IsInRole("Admin"))
         {
             <!-- Кнопка "Создать" доступна только админам -->
-            <a class="btn btn-success" asp-action="Create">Создать</a>
+            <a class="btn btn-outline-success" asp-action="Create">Создать</a>
+            <span class="mx-2">|</span>
         }
-        <!-- Кнопка "Поиск" -->
-        <button id="searchToggleBtn" class="btn btn-info me-auto">Поиск</button>
+        <!-- Кнопка "Поиск" для всех пользователей -->
+        <button id="searchToggleBtn" class="btn btn-outline-primary me-auto">Поиск</button>
     </div>
 
     <!-- Контейнер с формой фильтрации -->

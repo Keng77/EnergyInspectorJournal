@@ -6,20 +6,17 @@
     string ViolationTypeName = Model.Name ?? "";
 }
 
-<div class="container mt-4">
-    <!-- Заголовок -->
-    <h2 class="mb-4 text-center">Типы нарушений</h2>
-
-    <!-- Блок кнопок -->
-    <div class="d-flex mb-3 justify-content-between align-items-center">
-        @if (user.IsInRole("Admin"))
-        {
-            <!-- Кнопка "Создать" доступна только админам -->
-            <a class="btn btn-success" asp-action="Create">Создать</a>
-        }
-        <!-- Кнопка "Поиск" -->
-        <button id="searchToggleBtn" class="btn btn-info me-auto">Поиск</button>
-    </div>
+<!-- Блок кнопок -->
+<div class="d-flex mb-3 justify-content-between align-items-center">
+    @if (user.IsInRole("Admin"))
+    {
+        <!-- Кнопка "Создать" доступна только админам -->
+        <a class="btn btn-outline-success" asp-action="Create">Создать</a>
+        <span class="mx-2">|</span>
+    }
+    <!-- Кнопка "Поиск" для всех пользователей -->
+    <button id="searchToggleBtn" class="btn btn-outline-primary me-auto">Поиск</button>
+</div>
 
     <!-- Контейнер с формой фильтрации -->
     <div id="searchForm" class="d-none mt-3">

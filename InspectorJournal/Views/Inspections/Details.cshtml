@@ -5,90 +5,101 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Детали</h2>
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Детали </h2>
 
-<div>
-    <h4>Проверка</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Inspector.FullName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Inspector.FullName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Enterprise.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Enterprise.Name)
-        </dd>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h4 class="mb-4">Информация о проверках</h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ViolationType.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ViolationType.Name)
-        </dd>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Inspector.FullName)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Inspector.FullName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ResponsiblePerson)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ResponsiblePerson)
-        </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Enterprise.Name)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Enterprise.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InspectionDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.InspectionDate)
-        </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.ViolationType.Name)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.ViolationType.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProtocolNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProtocolNumber)
-        </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.ResponsiblePerson)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.ResponsiblePerson)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PenaltyAmount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PenaltyAmount)
-        </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.InspectionDate)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.InspectionDate)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentDeadline)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PaymentDeadline)
-        </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.ProtocolNumber)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.ProtocolNumber)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CorrectionDeadline)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CorrectionDeadline)
-        </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.PenaltyAmount)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.PenaltyAmount)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentStatus)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PaymentStatus)
-        </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.PaymentDeadline)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.PaymentDeadline)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CorrectionStatus)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CorrectionStatus)
-        </dd>
-    </dl>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.CorrectionDeadline)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.CorrectionDeadline)
+            </dd>
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.PaymentStatus)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.PaymentStatus)
+            </dd>
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.CorrectionStatus)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.CorrectionStatus)
+            </dd>
+        </dl>
+
+        <div class="text-center mt-4">
+            <a asp-action="Edit" asp-route-id="@Model.InspectionId" class="btn btn-primary">
+                <i class="bi bi-pencil"></i> Редактировать
+            </a>
+            <span class="mx-2">|</span>
+            <a asp-action="Index" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left-circle"></i> Вернуться к списку
+            </a>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.InspectionId">Редактировать</a> |
-    <a asp-action="Index">Вернуться к списку</a>
 </div>

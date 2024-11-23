@@ -5,87 +5,91 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Редактировать</h2>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Редактировать проверку</h2>
+    <div class="card shadow-lg">
+        <div class="card-body">
 
-<h4>Проверка</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="InspectionId" />
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="InspectionId" />
 
-            <div class="form-group">
-                <label asp-for="InspectorId" class="control-label"></label>
-                <select asp-for="InspectorId" class="form-control" asp-items="ViewBag.InspectorId"></select>
-            </div>
+        <div class="form-group">
+            <label asp-for="InspectorId" class="control-label"></label>
+            <select asp-for="InspectorId" class="form-control" asp-items="ViewBag.InspectorId"></select>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="EnterpriseId" class="control-label"></label>
-                <select asp-for="EnterpriseId" class="form-control" asp-items="ViewBag.EnterpriseId"></select>
-            </div>
+        <div class="form-group">
+            <label asp-for="EnterpriseId" class="control-label"></label>
+            <select asp-for="EnterpriseId" class="form-control" asp-items="ViewBag.EnterpriseId"></select>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="ViolationTypeId" class="control-label"></label>
-                <select asp-for="ViolationTypeId" class="form-control" asp-items="ViewBag.ViolationTypeId"></select>
-            </div>
+        <div class="form-group">
+            <label asp-for="ViolationTypeId" class="control-label"></label>
+            <select asp-for="ViolationTypeId" class="form-control" asp-items="ViewBag.ViolationTypeId"></select>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="InspectionDate" class="control-label"></label>
-                <input asp-for="InspectionDate" class="form-control" type="date" />
-                <span asp-validation-for="InspectionDate" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="InspectionDate" class="control-label"></label>
+            <input asp-for="InspectionDate" class="form-control" type="date" />
+            <span asp-validation-for="InspectionDate" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="ProtocolNumber" class="control-label"></label>
-                <input asp-for="ProtocolNumber" class="form-control" />
-                <span asp-validation-for="ProtocolNumber" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="ProtocolNumber" class="control-label"></label>
+            <input asp-for="ProtocolNumber" class="form-control" />
+            <span asp-validation-for="ProtocolNumber" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="ResponsiblePerson" class="control-label"></label>
-                <input asp-for="ResponsiblePerson" class="form-control" />
-                <span asp-validation-for="ResponsiblePerson" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PenaltyAmount" class="control-label"></label>
-                <input asp-for="PenaltyAmount" class="form-control" type="number" />
-                <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="ResponsiblePerson" class="control-label"></label>
+            <input asp-for="ResponsiblePerson" class="form-control" />
+            <span asp-validation-for="ResponsiblePerson" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="PaymentDeadline" class="control-label"></label>
-                <input asp-for="PaymentDeadline" class="form-control" type="date" />
-                <span asp-validation-for="PaymentDeadline" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="PenaltyAmount" class="control-label"></label>
+            <input asp-for="PenaltyAmount" class="form-control" type="number" />
+            <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="CorrectionDeadline" class="control-label"></label>
-                <input asp-for="CorrectionDeadline" class="form-control" type="date" />
-                <span asp-validation-for="CorrectionDeadline" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="PaymentDeadline" class="control-label"></label>
+            <input asp-for="PaymentDeadline" class="form-control" type="date" />
+            <span asp-validation-for="PaymentDeadline" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="PaymentStatus" class="control-label"></label>
-                <input asp-for="PaymentStatus" class="form-control" />
-                <span asp-validation-for="PaymentStatus" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="CorrectionDeadline" class="control-label"></label>
+            <input asp-for="CorrectionDeadline" class="form-control" type="date" />
+            <span asp-validation-for="CorrectionDeadline" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="CorrectionStatus" class="control-label"></label>
-                <input asp-for="CorrectionStatus" class="form-control" />
-                <span asp-validation-for="CorrectionStatus" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="PaymentStatus" class="control-label"></label>
+            <input asp-for="PaymentStatus" class="form-control" />
+            <span asp-validation-for="PaymentStatus" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+        <div class="form-group">
+            <label asp-for="CorrectionStatus" class="control-label"></label>
+            <input asp-for="CorrectionStatus" class="form-control" />
+            <span asp-validation-for="CorrectionStatus" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success btn-lg">
+                <i class="bi bi-save"></i> Сохранить
+            </button>
+
+            <a asp-action="Index" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left-circle"></i> Вернуться к списку
+            </a>
+
+        </div>
+    </form>
 </div>
-
-<div>
-    <a asp-action="Index">Вернуться к списку</a>
+    </div>
 </div>
 
 @section Scripts {

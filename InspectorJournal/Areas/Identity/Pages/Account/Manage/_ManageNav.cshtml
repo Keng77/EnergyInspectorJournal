@@ -1,7 +1,24 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
 
-<ul class="nav nav-pills nav-stacked">
-    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-page="./Index">Профиль</a></li>
-    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a id="change-password" asp-page="./ChangePassword">Пароль</a></li>
-    <li class="@ManageNavPages.PersonalDataNavClass(ViewContext)"><a asp-page="./PersonalData">Личные данные</a></li>
-</ul>
+<div class="container mt-4">
+    <h2>Настройки аккаунта</h2>
+
+    <ul class="nav nav-pills flex-column mb-3">
+        <li class="nav-item">
+            <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" asp-page="./Index">
+                <i class="bi bi-person"></i> Профиль
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">
+                <i class="bi bi-key"></i> Пароль
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" asp-page="./PersonalData">
+                <i class="bi bi-person-lines-fill"></i> Личные данные
+            </a>
+        </li>
+    </ul>
+</div>
+

@@ -8,26 +8,28 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="btn btn-link">
-                    @UserManager.GetUserName(User)
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="btn btn-outline-secondary">
+                    <i class="bi bi-person-circle"></i> @UserManager.GetUserName(User)
                 </a>
             </li>
 
             @if (User.IsInRole("Admin"))
             {
                 <li>
-                    <a asp-area="" asp-controller="Users" asp-action="Index" title="Пользователи" class="btn btn-info">
-                        Пользователи
+                    <a asp-area="" asp-controller="Users" asp-action="Index" title="Пользователи" class="btn btn-outline-primary">
+                        <i class="bi bi-person-badge"></i> Пользователи
                     </a>
                 </li>
             }
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Сменить пароль" class="btn btn-warning">
-                    Сменить пароль
+                <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Сменить пароль" class="btn btn-outline-warning">
+                    <i class="bi bi-lock"></i> Сменить пароль
                 </a>
             </li>
             <li>
-                <button type="submit" class="btn btn-danger navbar-btn navbar-link">Выход</button>
+                <button type="submit" class="btn btn-outline-danger navbar-btn navbar-link">
+                    <i class="bi bi-box-arrow-right"></i> Выход
+                </button>
             </li>
         </ul>
     </form>
@@ -36,10 +38,14 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Вход</a>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-primary">
+                <i class="bi bi-box-arrow-in-right"></i> Вход
+            </a>
         </li>
         <li>
-            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">Регистрация</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-secondary">
+                <i class="bi bi-person-plus"></i> Регистрация
+            </a>
         </li>
     </ul>
 }

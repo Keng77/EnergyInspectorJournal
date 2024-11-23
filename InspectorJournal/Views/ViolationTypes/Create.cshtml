@@ -2,43 +2,61 @@
 
 @{
     ViewData["Title"] = "Создать";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Создать</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 
-<h4>ViolationType</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="
-">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PenaltyAmount" class="control-label"></label>
-                <input asp-for="PenaltyAmount" class="form-control" />
-                <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CorrectionPeriodDays" class="control-label"></label>
-                <input asp-for="CorrectionPeriodDays" class="form-control" />
-                <span asp-validation-for="CorrectionPeriodDays" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<h4 class="text-center">Создание нового типа нарушения</h4>
+<hr class="my-4" />
+
+    <div class="card shadow-lg">
+        <div class="card-body">
+            
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Поле для названия нарушения -->
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label">Название нарушения</label>
+                    <input asp-for="Name" class="form-control" placeholder="Введите название нарушения" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <!-- Поле для штрафа -->
+                <div class="form-group mb-3">
+                    <label asp-for="PenaltyAmount" class="form-label">Штраф (руб.)</label>
+                    <input asp-for="PenaltyAmount" class="form-control " placeholder="Введите сумму штрафа" />
+                    <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
+                </div>
+
+                <!-- Поле для количества дней на исправление -->
+                <div class="form-group mb-3">
+                    <label asp-for="CorrectionPeriodDays" class="form-label">Срок исправления (дни)</label>
+                    <input asp-for="CorrectionPeriodDays" class="form-control" placeholder="Введите количество дней" />
+                    <span asp-validation-for="CorrectionPeriodDays" class="text-danger"></span>
+                </div>
+
+                <!-- Кнопка создания -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success btn-block">
+                        <i class="bi bi-check-circle"></i> Создать
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ссылка на возвращение к списку -->
+    <div class="mt-3 text-center">
+        <a asp-action="Index" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left-circle"></i> Вернуться к списку
+        </a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Вернуться к списку</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
