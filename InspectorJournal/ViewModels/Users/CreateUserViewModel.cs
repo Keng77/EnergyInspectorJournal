@@ -19,7 +19,7 @@ namespace InspectorJournal.ViewModels.Users
         public string UserRole { get; set; }
         public CreateUserViewModel()
         {
-            UserRole = "user";
+            UserRole = "User";
             RegistrationDate = DateTime.Now.Date;
         }
 

@@ -20,23 +20,17 @@
                         <th>Адрес</th>
                         <th>Управляющий</th>
                         <th>Номер Управляющего</th>
-                        @if (User.IsInRole("admin"))
-                        {
-                            <th>Действие</th>
-                        }
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var enterprise in Model.Enterprises)
                     {
                         <tr>
-                            @* <td>@enterprise.EnterpriseId</td> *@
                             <td>@enterprise.Name</td>
                             <td>@enterprise.OwnershipType</td>
                             <td>@enterprise.Address</td>
                             <td>@enterprise.DirectorName</td>
                             <td>@enterprise.DirectorPhone</td>
-                           @*  @Html.Partial("AdminActions", enterprise.EnterpriseId) *@
                         </tr>
                     }
                 </tbody>
@@ -54,20 +48,14 @@
                         @* <th>Код Инспектора</th> *@
                         <th>Проверяющий</th>
                         <th>Департамент</th>
-                        @if (User.IsInRole("admin"))
-                        {
-                            <th>Действие</th>
-                        }
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var inspector in Model.Inspectors)
                     {
                         <tr>
-                            @* <td>@inspector.InspectorId</td> *@
                             <td>@inspector.FullName</td>
                             <td>@inspector.Department</td>
-                            @* @Html.Partial("AdminActions", inspector.InspectorId) *@
                         </tr>
                     }
                 </tbody>
@@ -84,21 +72,15 @@
                         <th>Тип нарушения</th>
                         <th>Задолженность</th>
                         <th>Дедлайн исправления</th>
-                        @if (User.IsInRole("admin"))
-                        {
-                            <th>Действие</th>
-                        }
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var violationType in Model.ViolationTypes)
                     {
                         <tr>
-                            @* <td>@violationType.ViolationTypeId</td> *@
                             <td>@violationType.Name</td>
                             <td>@violationType.PenaltyAmount</td>
                             <td>@violationType.CorrectionPeriodDays</td>
-                            @* @Html.Partial("AdminActions", violationType.ViolationTypeId) *@
                         </tr>
                     }
                 </tbody>
@@ -124,17 +106,12 @@
                     <th>Дедлайн исправления</th>
                     <th>Статус Оплаты</th>
                     <th>Статус Исправления</th>
-                    @if (User.IsInRole("admin"))
-                    {
-                        <th>Действие</th>
-                    }
                 </tr>
             </thead>
             <tbody>
                 @foreach (var inspection in Model.Inspections)
                 {
                     <tr>
-                        @* <td>@inspection.InspectionId</td> *@
                         <td>@inspection.Inspector</td>
                         <td>@inspection.Enterprise</td>
                         <td>@inspection.InspectionDate</td>
@@ -146,7 +123,6 @@
                         <td>@inspection.CorrectionDeadline</td>
                         <td>@inspection.PaymentStatus</td>
                         <td>@inspection.CorrectionStatus</td>
-                       @*  @Html.Partial("AdminActions", inspection.InspectionId) *@
                     </tr>
                 }
             </tbody>

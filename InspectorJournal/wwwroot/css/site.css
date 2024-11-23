@@ -50,13 +50,16 @@
         font-size: 0.7rem; /* Еще уменьшаем размер шрифта всей таблицы */
     }
 }
+.form-group {
+    margin-bottom: 1rem;
+}
 
 .sort-link {
     text-decoration: none;
     color: #007bff;
     font-weight: bold;
     display: flex;
-    align-items: center;
+    align-items:baseline;
 }
 
 .sort-link:hover {

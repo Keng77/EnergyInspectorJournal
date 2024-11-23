@@ -13,13 +13,13 @@ public static class DbUserInitializer
         string adminName = "admin@gmail.com";
 
         string password = "_Aa123456";
-        if (await roleManager.FindByNameAsync("admin") == null)
+        if (await roleManager.FindByNameAsync("Admin") == null)
         {
-            await roleManager.CreateAsync(new IdentityRole("admin"));
+            await roleManager.CreateAsync(new IdentityRole("Admin"));
         }
-        if (await roleManager.FindByNameAsync("user") == null)
+        if (await roleManager.FindByNameAsync("User") == null)
         {
-            await roleManager.CreateAsync(new IdentityRole("user"));
+            await roleManager.CreateAsync(new IdentityRole("User"));
         }
         if (await userManager.FindByNameAsync(adminEmail) == null)
         {
@@ -32,7 +32,7 @@ public static class DbUserInitializer
             IdentityResult result = await userManager.CreateAsync(admin, password);
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(admin, "admin");
+                await userManager.AddToRoleAsync(admin, "Admin");
             }
         }
     }

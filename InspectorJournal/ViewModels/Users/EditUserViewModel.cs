@@ -18,7 +18,7 @@ namespace InspectorJournal.ViewModels.Users
         public string UserRole { get; set; }
         public EditUserViewModel()
         {
-            UserRole = "user";
-        }
+            UserRole = "User";
+        }   
     }
 }
