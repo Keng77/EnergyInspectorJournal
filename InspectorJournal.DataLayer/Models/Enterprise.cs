@@ -17,7 +17,7 @@ namespace InspectorJournal.DataLayer.Models
         public string OwnershipType { get; set; } = null!;
 
         [Required]
-        [Display(Name = "Адресс")]
+        [Display(Name = "Адрес")]
         public string Address { get; set; } = null!;
 
         [Required]
