@@ -1,7 +1,5 @@
-﻿using InspectorJournal.DataLayer.Data;
-using InspectorJournal.Data;
-using InspectorJournal.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using InspectorJournal.Data;
+using InspectorJournal.DataLayer.Data;
 
 namespace InspectorJournal.Middleware;
 
@@ -11,7 +9,7 @@ public class DbInitializerMiddleware(RequestDelegate next)
 
     public Task Invoke(HttpContext context)
     {
-        if (!(context.Session.Keys.Contains("starting")))
+        if (!context.Session.Keys.Contains("starting"))
         {
             DbUserInitializer.Initialize(context).Wait();
             DbInitializer.Initialize(context.RequestServices.GetRequiredService<InspectionsDbContext>());

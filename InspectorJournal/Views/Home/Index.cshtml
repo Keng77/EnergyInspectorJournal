@@ -13,26 +13,26 @@
             <table class="table table-bordered table-hover">
                 <caption class="text-center">Предприятия</caption>
                 <thead class="table-dark">
-                    <tr>
-                        @* <th>Код Предприятия</th> *@
-                        <th>Предприятие</th>
-                        <th>Тип Собственности</th>
-                        <th>Адрес</th>
-                        <th>Управляющий</th>
-                        <th>Номер Управляющего</th>
-                    </tr>
+                <tr>
+                    @* <th>Код Предприятия</th> *@
+                    <th>Предприятие</th>
+                    <th>Тип Собственности</th>
+                    <th>Адрес</th>
+                    <th>Управляющий</th>
+                    <th>Номер Управляющего</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var enterprise in Model.Enterprises)
-                    {
-                        <tr>
-                            <td>@enterprise.Name</td>
-                            <td>@enterprise.OwnershipType</td>
-                            <td>@enterprise.Address</td>
-                            <td>@enterprise.DirectorName</td>
-                            <td>@enterprise.DirectorPhone</td>
-                        </tr>
-                    }
+                @foreach (var enterprise in Model.Enterprises)
+                {
+                    <tr>
+                        <td>@enterprise.Name</td>
+                        <td>@enterprise.OwnershipType</td>
+                        <td>@enterprise.Address</td>
+                        <td>@enterprise.DirectorName</td>
+                        <td>@enterprise.DirectorPhone</td>
+                    </tr>
+                }
                 </tbody>
             </table>
         </div>
@@ -44,20 +44,20 @@
             <table class="table table-bordered table-hover">
                 <caption class="text-center">Инспектора</caption>
                 <thead class="table-dark">
-                    <tr>
-                        @* <th>Код Инспектора</th> *@
-                        <th>Проверяющий</th>
-                        <th>Департамент</th>
-                    </tr>
+                <tr>
+                    @* <th>Код Инспектора</th> *@
+                    <th>Проверяющий</th>
+                    <th>Департамент</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var inspector in Model.Inspectors)
-                    {
-                        <tr>
-                            <td>@inspector.FullName</td>
-                            <td>@inspector.Department</td>
-                        </tr>
-                    }
+                @foreach (var inspector in Model.Inspectors)
+                {
+                    <tr>
+                        <td>@inspector.FullName</td>
+                        <td>@inspector.Department</td>
+                    </tr>
+                }
                 </tbody>
             </table>
         </div>
@@ -67,22 +67,22 @@
             <table class="table table-bordered table-hover">
                 <caption class="text-center">Нарушения</caption>
                 <thead class="table-dark">
-                    <tr>
-                        @* <th>Код Нарушения</th> *@
-                        <th>Тип нарушения</th>
-                        <th>Задолженность</th>
-                        <th>Дедлайн исправления</th>
-                    </tr>
+                <tr>
+                    @* <th>Код Нарушения</th> *@
+                    <th>Тип нарушения</th>
+                    <th>Задолженность</th>
+                    <th>Дедлайн исправления</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var violationType in Model.ViolationTypes)
-                    {
-                        <tr>
-                            <td>@violationType.Name</td>
-                            <td>@violationType.PenaltyAmount</td>
-                            <td>@violationType.CorrectionPeriodDays</td>
-                        </tr>
-                    }
+                @foreach (var violationType in Model.ViolationTypes)
+                {
+                    <tr>
+                        <td>@violationType.Name</td>
+                        <td>@violationType.PenaltyAmount</td>
+                        <td>@violationType.CorrectionPeriodDays</td>
+                    </tr>
+                }
                 </tbody>
             </table>
         </div>
@@ -93,38 +93,38 @@
         <table class="table table-bordered table-hover">
             <caption class="text-center">Проверки</caption>
             <thead class="table-dark">
-                <tr>
-                    @* <th>Код проверки</th> *@
-                    <th>Инспектор</th>
-                    <th>Предприятие</th>
-                    <th>Дата Проверки</th>
-                    <th>Номер Протокола</th>
-                    <th>Тип Нарушения</th>
-                    <th>Ответственный</th>
-                    <th>Сумма задолженности</th>
-                    <th>Дедлайн Оплаты</th>
-                    <th>Дедлайн исправления</th>
-                    <th>Статус Оплаты</th>
-                    <th>Статус Исправления</th>
-                </tr>
+            <tr>
+                @* <th>Код проверки</th> *@
+                <th>Инспектор</th>
+                <th>Предприятие</th>
+                <th>Дата Проверки</th>
+                <th>Номер Протокола</th>
+                <th>Тип Нарушения</th>
+                <th>Ответственный</th>
+                <th>Сумма задолженности</th>
+                <th>Дедлайн Оплаты</th>
+                <th>Дедлайн исправления</th>
+                <th>Статус Оплаты</th>
+                <th>Статус Исправления</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var inspection in Model.Inspections)
-                {
-                    <tr>
-                        <td>@inspection.Inspector</td>
-                        <td>@inspection.Enterprise</td>
-                        <td>@inspection.InspectionDate</td>
-                        <td>@inspection.ProtocolNumber</td>
-                        <td>@inspection.ViolationType</td>
-                        <td>@inspection.ResponsiblePerson</td>
-                        <td>@inspection.PenaltyAmount</td>
-                        <td>@inspection.PaymentDeadline</td>
-                        <td>@inspection.CorrectionDeadline</td>
-                        <td>@inspection.PaymentStatus</td>
-                        <td>@inspection.CorrectionStatus</td>
-                    </tr>
-                }
+            @foreach (var inspection in Model.Inspections)
+            {
+                <tr>
+                    <td>@inspection.Inspector</td>
+                    <td>@inspection.Enterprise</td>
+                    <td>@inspection.InspectionDate</td>
+                    <td>@inspection.ProtocolNumber</td>
+                    <td>@inspection.ViolationType</td>
+                    <td>@inspection.ResponsiblePerson</td>
+                    <td>@inspection.PenaltyAmount</td>
+                    <td>@inspection.PaymentDeadline</td>
+                    <td>@inspection.CorrectionDeadline</td>
+                    <td>@inspection.PaymentStatus</td>
+                    <td>@inspection.CorrectionStatus</td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>

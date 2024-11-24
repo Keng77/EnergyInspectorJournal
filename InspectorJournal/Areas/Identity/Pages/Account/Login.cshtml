@@ -18,7 +18,7 @@
                         <!-- Поле для имени пользователя или почты -->
                         <div class="form-group mb-3">
                             <label asp-for="Input.UserNameOrEmail" class="form-label"></label>
-                            <input asp-for="Input.UserNameOrEmail" class="form-control" />
+                            <input asp-for="Input.UserNameOrEmail" class="form-control"/>
                             <!-- Ошибки для имени пользователя или почты -->
                             <span asp-validation-for="Input.UserNameOrEmail" class="text-danger"></span>
                         </div>
@@ -26,14 +26,14 @@
                         <!-- Поле для пароля -->
                         <div class="form-group mb-3">
                             <label asp-for="Input.Password" class="form-label"></label>
-                            <input asp-for="Input.Password" class="form-control" type="password" />
+                            <input asp-for="Input.Password" class="form-control" type="password"/>
                             <!-- Ошибки для пароля -->
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
 
                         <!-- Запомнить меня -->
                         <div class="form-check mb-3">
-                            <input asp-for="Input.RememberMe" class="form-check-input" />
+                            <input asp-for="Input.RememberMe" class="form-check-input"/>
                             <label asp-for="Input.RememberMe" class="form-check-label">
                                 @Html.DisplayNameFor(m => m.Input.RememberMe)
                             </label>
@@ -60,5 +60,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

@@ -1,4 +1,4 @@
-﻿@model InspectorJournal.DataLayer.Models.ViolationType
+﻿@model ViolationType
 
 @{
     ViewData["Title"] = "Редактировать";
@@ -12,23 +12,23 @@
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                <input type="hidden" asp-for="ViolationTypeId" />
+                <input type="hidden" asp-for="ViolationTypeId"/>
 
                 <div class="form-group mb-3">
                     <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
+                    <input asp-for="Name" class="form-control"/>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="PenaltyAmount" class="control-label"></label>
-                    <input asp-for="PenaltyAmount" class="form-control" />
+                    <input asp-for="PenaltyAmount" class="form-control"/>
                     <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="CorrectionPeriodDays" class="control-label"></label>
-                    <input asp-for="CorrectionPeriodDays" class="form-control" />
+                    <input asp-for="CorrectionPeriodDays" class="form-control"/>
                     <span asp-validation-for="CorrectionPeriodDays" class="text-danger"></span>
                 </div>
 

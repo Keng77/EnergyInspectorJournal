@@ -8,81 +8,81 @@
 <h1 class="text-center">@ViewData["Title"]</h1>
 
 <h4 class="text-center">Создание новой проверки</h4>
-<hr class="my-4" />
+<hr class="my-4"/>
 
-    <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
-        <div class="form-group mb-3">
-            <label asp-for="InspectorId" class="control-label"></label>
-            <select asp-for="InspectorId" class="form-control" asp-items="ViewBag.InspectorId"></select>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="InspectorId" class="control-label"></label>
+        <select asp-for="InspectorId" class="form-control" asp-items="ViewBag.InspectorId"></select>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="EnterpriseId" class="control-label"></label>
-            <select asp-for="EnterpriseId" class="form-control" asp-items="ViewBag.EnterpriseId"></select>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="EnterpriseId" class="control-label"></label>
+        <select asp-for="EnterpriseId" class="form-control" asp-items="ViewBag.EnterpriseId"></select>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="ViolationTypeId" class="control-label"></label>
-            <select asp-for="ViolationTypeId" class="form-control" asp-items="ViewBag.ViolationTypeId"></select>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="ViolationTypeId" class="control-label"></label>
+        <select asp-for="ViolationTypeId" class="form-control" asp-items="ViewBag.ViolationTypeId"></select>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="InspectionDate" class="control-label"></label>
-            <input asp-for="InspectionDate" class="form-control" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
-            <span asp-validation-for="InspectionDate" class="text-danger"></span>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="InspectionDate" class="control-label"></label>
+        <input asp-for="InspectionDate" class="form-control" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")"/>
+        <span asp-validation-for="InspectionDate" class="text-danger"></span>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="ProtocolNumber" class="control-label"></label>
-            <input asp-for="ProtocolNumber" class="form-control" placeholder="Номер протокола" />
-            <span asp-validation-for="ProtocolNumber" class="text-danger"></span>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="ProtocolNumber" class="control-label"></label>
+        <input asp-for="ProtocolNumber" class="form-control" placeholder="Номер протокола"/>
+        <span asp-validation-for="ProtocolNumber" class="text-danger"></span>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="ResponsiblePerson" class="control-label"></label>
-            <input asp-for="ResponsiblePerson" class="form-control" placeholder="Ответственное лицо" />
-            <span asp-validation-for="ResponsiblePerson" class="text-danger"></span>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="ResponsiblePerson" class="control-label"></label>
+        <input asp-for="ResponsiblePerson" class="form-control" placeholder="Ответственное лицо"/>
+        <span asp-validation-for="ResponsiblePerson" class="text-danger"></span>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="PenaltyAmount" class="control-label"></label>
-            <input asp-for="PenaltyAmount" class="form-control" type="number" placeholder="Сумма штрафа" />
-            <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="PenaltyAmount" class="control-label"></label>
+        <input asp-for="PenaltyAmount" class="form-control" type="number" placeholder="Сумма штрафа"/>
+        <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="PaymentDeadline" class="control-label"></label>
-            <input asp-for="PaymentDeadline" class="form-control" type="date" value="@DateTime.Today.AddDays(7).ToString("yyyy-MM-dd")" />
-            <span asp-validation-for="PaymentDeadline" class="text-danger"></span>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="PaymentDeadline" class="control-label"></label>
+        <input asp-for="PaymentDeadline" class="form-control" type="date" value="@DateTime.Today.AddDays(7).ToString("yyyy-MM-dd")"/>
+        <span asp-validation-for="PaymentDeadline" class="text-danger"></span>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="CorrectionDeadline" class="control-label"></label>
-            <input asp-for="CorrectionDeadline" class="form-control" type="date" value="@DateTime.Today.AddDays(10).ToString("yyyy-MM-dd")" />
-            <span asp-validation-for="CorrectionDeadline" class="text-danger"></span>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="CorrectionDeadline" class="control-label"></label>
+        <input asp-for="CorrectionDeadline" class="form-control" type="date" value="@DateTime.Today.AddDays(10).ToString("yyyy-MM-dd")"/>
+        <span asp-validation-for="CorrectionDeadline" class="text-danger"></span>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="PaymentStatus" class="control-label"></label>
-            <input asp-for="PaymentStatus" class="form-control" placeholder="Статус платежа" />
-            <span asp-validation-for="PaymentStatus" class="text-danger"></span>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="PaymentStatus" class="control-label"></label>
+        <input asp-for="PaymentStatus" class="form-control" placeholder="Статус платежа"/>
+        <span asp-validation-for="PaymentStatus" class="text-danger"></span>
+    </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="CorrectionStatus" class="control-label"></label>
-            <input asp-for="CorrectionStatus" class="form-control" placeholder="Статус исправления" />
-            <span asp-validation-for="CorrectionStatus" class="text-danger"></span>
-        </div>
+    <div class="form-group mb-3">
+        <label asp-for="CorrectionStatus" class="control-label"></label>
+        <input asp-for="CorrectionStatus" class="form-control" placeholder="Статус исправления"/>
+        <span asp-validation-for="CorrectionStatus" class="text-danger"></span>
+    </div>
 
-        <div class="form-group text-center">
-            <button type="submit" class="btn btn-success btn-block">
-                <i class="bi bi-check-circle"></i> Создать
-            </button>
-        </div>
-    </form>
-</div>
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-success btn-block">
+            <i class="bi bi-check-circle"></i> Создать
+        </button>
+    </div>
+</form>
+
 
 <div class="mt-3 text-center">
     <a asp-action="Index" class="btn btn-outline-primary">

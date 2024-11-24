@@ -17,28 +17,28 @@
                         <!-- Поле для имени пользователя -->
                         <div class="form-group mb-3">
                             <label asp-for="Input.UserName" class="form-label"></label>
-                            <input asp-for="Input.UserName" class="form-control" />
+                            <input asp-for="Input.UserName" class="form-control"/>
                             <span asp-validation-for="Input.UserName" class="text-danger"></span>
                         </div>
 
                         <!-- Поле для электронной почты -->
                         <div class="form-group mb-3">
                             <label asp-for="Input.Email" class="form-label"></label>
-                            <input asp-for="Input.Email" class="form-control" type="email" />
+                            <input asp-for="Input.Email" class="form-control" type="email"/>
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
 
                         <!-- Поле для пароля -->
                         <div class="form-group mb-3">
                             <label asp-for="Input.Password" class="form-label"></label>
-                            <input asp-for="Input.Password" class="form-control" type="password" />
+                            <input asp-for="Input.Password" class="form-control" type="password"/>
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
 
                         <!-- Поле для подтверждения пароля -->
                         <div class="form-group mb-3">
                             <label asp-for="Input.ConfirmPassword" class="form-label"></label>
-                            <input asp-for="Input.ConfirmPassword" class="form-control" type="password" />
+                            <input asp-for="Input.ConfirmPassword" class="form-control" type="password"/>
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
 
@@ -60,5 +60,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

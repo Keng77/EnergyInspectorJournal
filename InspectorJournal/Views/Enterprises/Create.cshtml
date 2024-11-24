@@ -1,4 +1,4 @@
-﻿@model InspectorJournal.DataLayer.Models.Enterprise
+﻿@model Enterprise
 
 @{
     ViewData["Title"] = "Создать";
@@ -7,7 +7,7 @@
 <h1 class="text-center">@ViewData["Title"]</h1>
 
 <h4 class="text-center">Создание нового предприятия</h4>
-<hr class="my-4" />
+<hr class="my-4"/>
 
 <div class="row justify-content-center">
     <div class="col-md-6">
@@ -16,31 +16,31 @@
 
             <div class="form-group mb-3">
                 <label asp-for="Name" class="control-label">Название предприятия</label>
-                <input asp-for="Name" class="form-control" placeholder="Введите название предприятия" />
+                <input asp-for="Name" class="form-control" placeholder="Введите название предприятия"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="OwnershipType" class="control-label">Тип собственности</label>
-                <input asp-for="OwnershipType" class="form-control" placeholder="Введите тип собственности" />
+                <input asp-for="OwnershipType" class="form-control" placeholder="Введите тип собственности"/>
                 <span asp-validation-for="OwnershipType" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="Address" class="control-label">Адрес</label>
-                <input asp-for="Address" class="form-control" placeholder="Введите адрес" />
+                <input asp-for="Address" class="form-control" placeholder="Введите адрес"/>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="DirectorName" class="control-label">Имя директора</label>
-                <input asp-for="DirectorName" class="form-control" placeholder="Введите имя директора" />
+                <input asp-for="DirectorName" class="form-control" placeholder="Введите имя директора"/>
                 <span asp-validation-for="DirectorName" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="DirectorPhone" class="control-label">Телефон директора</label>
-                <input asp-for="DirectorPhone" class="form-control" placeholder="Введите телефон директора" />
+                <input asp-for="DirectorPhone" class="form-control" placeholder="Введите телефон директора"/>
                 <span asp-validation-for="DirectorPhone" class="text-danger"></span>
             </div>
 

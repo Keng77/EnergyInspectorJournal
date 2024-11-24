@@ -1,61 +1,61 @@
-﻿@model InspectorJournal.DataLayer.Models.Enterprise
+﻿@model Enterprise
 
 @{
     ViewData["Title"] = "Детали";
 }
 
 <div class="container mt-4">
-<h2 class="mb-4 text-center">Детали </h2>
+    <h2 class="mb-4 text-center">Детали </h2>
 
-<div class="card shadow-sm">
-    <div class="card-body">
-        <h4 class="mb-4">Информация о предприятиях</h4>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="mb-4">Информация о предприятиях</h4>
 
-        <dl class="row">
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.OwnershipType)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.OwnershipType)
-            </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.OwnershipType)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.OwnershipType)
+                </dd>
 
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Address)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Address)
-            </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
 
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.DirectorName)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.DirectorName)
-            </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.DirectorName)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DirectorName)
+                </dd>
 
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.DirectorPhone)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.DirectorPhone)
-            </dd>
-        </dl>
-        <div class="text-center mt-4">
-            <a asp-action="Edit" asp-route-id="@Model.EnterpriseId" class="btn btn-primary">
-                <i class="bi bi-pencil"></i> Редактировать
-            </a>
-            <span class="mx-2">|</span>
-            <a asp-action="Index" class="btn btn-outline-primary">
-                <i class="bi bi-arrow-left-circle"></i> Вернуться к списку
-            </a>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.DirectorPhone)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DirectorPhone)
+                </dd>
+            </dl>
+            <div class="text-center mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.EnterpriseId" class="btn btn-primary">
+                    <i class="bi bi-pencil"></i> Редактировать
+                </a>
+                <span class="mx-2">|</span>
+                <a asp-action="Index" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left-circle"></i> Вернуться к списку
+                </a>
+            </div>
         </div>
     </div>
-</div>
 </div>

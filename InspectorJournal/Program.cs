@@ -24,9 +24,9 @@ public class Program
 
         // Настройка Identity
         services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultUI()
-                .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
 
         // Другие сервисы \\
 
@@ -56,13 +56,9 @@ public class Program
 
         // Ожидаем, что в Development будем использовать страницу ошибок
         if (app.Environment.IsDevelopment())
-        {
             app.UseDeveloperExceptionPage();
-        }
         else
-        {
             app.UseExceptionHandler("/Home/Error");
-        }
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
@@ -76,26 +72,22 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
         // Регистрация middleware для инициализации базы данных
-        app.UseDbInitializer();  // Это вызывает вашу инициализацию базы данных
+        app.UseDbInitializer(); // Это вызывает вашу инициализацию базы данных
 
         // Маршруты
         // Перенаправление на страницу входа, если пользователь не аутентифицирован
         app.MapGet("/", async context =>
         {
             if (!context.User.Identity.IsAuthenticated)
-            {
-                context.Response.Redirect("/Identity/Account/Login");  // Путь на страницу входа
-            }
+                context.Response.Redirect("/Identity/Account/Login"); // Путь на страницу входа
             else
-            {
-                context.Response.Redirect("/Home/Index");  // Путь на Index если пользователь аутентифицирован
-            }
+                context.Response.Redirect("/Home/Index"); // Путь на Index если пользователь аутентифицирован
         });
 
         // Настройка стандартного маршрута
         app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+            "default",
+            "{controller=Home}/{action=Index}/{id?}");
         app.MapRazorPages();
 
         app.Run();

@@ -18,28 +18,28 @@
                         <!-- Поле для имени пользователя -->
                         <div class="form-group mb-3">
                             <label asp-for="UserName" class="form-label">Имя пользователя</label>
-                            <input type="text" asp-for="UserName" class="form-control" />
+                            <input type="text" asp-for="UserName" class="form-control"/>
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
 
                         <!-- Поле для email -->
                         <div class="form-group mb-3">
                             <label asp-for="Email" class="form-label">Email</label>
-                            <input asp-for="Email" class="form-control" />
+                            <input asp-for="Email" class="form-control"/>
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <!-- Поле для пароля -->
                         <div class="form-group mb-3">
                             <label asp-for="Password" class="form-label">Пароль</label>
-                            <input asp-for="Password" class="form-control" type="password" />
+                            <input asp-for="Password" class="form-control" type="password"/>
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
                         <!-- Поле для даты регистрации -->
                         <div class="form-group mb-3">
                             <label asp-for="RegistrationDate" class="form-label">Дата регистрации</label>
-                            <input asp-for="RegistrationDate" class="form-control" type="date" />
+                            <input asp-for="RegistrationDate" class="form-control" type="date"/>
                             <span asp-validation-for="RegistrationDate" class="text-danger"></span>
                         </div>
 
@@ -67,5 +67,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }
