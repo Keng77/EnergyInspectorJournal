@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using InspectorJournal.DataLayer.Data;
+﻿using InspectorJournal.DataLayer.Data;
 using InspectorJournal.DataLayer.Models;
+using InspectorJournal.Infrastructure;
 using InspectorJournal.Infrastructure.Filters;
 using InspectorJournal.ViewModels;
-using Microsoft.IdentityModel.Tokens;
-using InspectorJournal.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace InspectorJournal.Controllers
 {
