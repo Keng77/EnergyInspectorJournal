@@ -9,11 +9,14 @@ public class InspectorsViewModel
 
     //Свойство для фильтрации
     //Код Инспектора
-    [Display(Name = "Код Инспектора")] public int InspectorId { get; set; }
+    [Display(Name = "Код Инспектора")]
+    public int InspectorId { get; set; }
 
-    [Display(Name = "Проверяющий")] public string FullName { get; set; } = null!;
+    [Display(Name = "Проверяющий")]
+    public string FullName { get; set; } = null!;
 
-    [Display(Name = "Департамент")] public string Department { get; set; } = null!;
+    [Display(Name = "Департамент")]
+    public string Department { get; set; } = null!;
 
     //Свойство для навигации по страницам
     public PageViewModel PageViewModel { get; set; }

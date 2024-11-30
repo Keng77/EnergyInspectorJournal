@@ -8,11 +8,14 @@ public class ViolationTypesViewModel
     public IEnumerable<ViolationType> ViolationTypes { get; set; }
 
     //Код Нарушения
-    [Display(Name = "Код Нарушения")] public int ViolationTypeId { get; set; }
+    [Display(Name = "Код Нарушения")]
+    public int ViolationTypeId { get; set; }
 
-    [Display(Name = "Тип нарушения")] public string Name { get; set; } = null!;
+    [Display(Name = "Тип нарушения")]
+    public string Name { get; set; } = null!;
 
-    [Display(Name = "Задолженность")] public decimal PenaltyAmount { get; set; }
+    [Display(Name = "Задолженность")]
+    public decimal PenaltyAmount { get; set; }
 
     [Display(Name = "Дедлайн исправления")]
     public int CorrectionPeriodDays { get; set; }
