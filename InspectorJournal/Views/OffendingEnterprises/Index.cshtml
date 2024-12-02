@@ -1,0 +1,115 @@
+﻿@model OffendingEnterprisesViewModel
+
+@{
+    ViewData["Title"] = "Предприятия нарушители";
+    var user = Context.User;
+    var violationType = Model.ViolationType ?? "";
+    var correctionStatus = Model.CorrectionStatus ?? "";
+    var paymentStatus = Model.PaymentStatus ?? "";
+    var enterpriseName = Model.Name ?? "";
+}
+
+<div class="container mt-4">
+    <!-- Заголовок -->
+    <h2 class="mb-4 text-center">Список предприятий нарушителей</h2>
+
+    <!-- Блок кнопок -->
+    <div class="d-flex mb-3 justify-content-between align-items-center">
+        <!-- Кнопка "Поиск" для всех пользователей -->
+        <button id="searchToggleBtn" class="btn btn-outline-primary me-auto">Поиск</button>
+    </div>
+
+    <!-- Контейнер с формой фильтрации -->
+    <div id="searchForm" class="d-none mt-3">
+        @using (Html.BeginForm("Index", "OffendingEnterprises", FormMethod.Get))
+        {
+            <fieldset class="border p-4 rounded bg-light">
+                <legend class="w-auto">Фильтрация проверок</legend>
+                <div class="d-flex flex-wrap">
+                    <!-- Название предприятия -->
+                    <div class="form-group mr-3">
+                        <label for="enterpriseName" class="form-label">Название предприятия:</label>
+                        @Html.TextBox("enterpriseName", enterpriseName, new { @class = "form-control" })
+                    </div>
+                    <!-- Тип нарушения -->
+                    <div class="form-group mr-3">
+                        <label for="violationType" class="form-label">Тип нарушения:</label>
+                        @Html.TextBox("violationType", violationType, new { @class = "form-control" })
+                    </div>
+                    <!-- Статус оплаты -->
+                    <div class="form-group mr-3">
+                        <label for="paymentStatus" class="form-label">Статус оплаты:</label>
+                        @Html.TextBox("paymentStatus", paymentStatus, new { @class = "form-control" })
+                    </div>
+                    <!-- Статус исправления -->
+                    <div class="form-group mr-3">
+                        <label for="correctionStatus" class="form-label">Статус исправления:</label>
+                        @Html.TextBox("correctionStatus", correctionStatus, new { @class = "form-control" })
+                    </div>
+                    <!-- Кнопка поиска -->
+                    <div class="form-group align-self-end">
+                        <button type="submit" class="btn btn-primary">Найти</button>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
+
+    <!-- Таблица проверок -->
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.SortViewModel.EnterpriseNameSort"
+                       asp-route-violationType="@violationType"
+                       asp-route-correctionStatus="@correctionStatus"
+                       asp-route-paymentStatus="@paymentStatus"
+                       asp-route-enterpriseName="@enterpriseName"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.Name)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.EnterpriseNameAsc))
+                    </a>
+                </th>
+                <th>@Html.DisplayNameFor(model => model.DirectorName)</th>
+                <th>@Html.DisplayNameFor(model => model.DirectorPhone)</th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.SortViewModel.ViolationTypeSort"
+                       asp-route-violationType="@violationType"
+                       asp-route-correctionStatus="@correctionStatus"
+                       asp-route-paymentStatus="@paymentStatus"
+                       asp-route-enterpriseName="@enterpriseName"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.ViolationType)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.ViolationTypeAsc))
+                    </a>
+                </th>
+                <th>@Html.DisplayNameFor(model => model.PaymentStatus)</th>
+                <th>@Html.DisplayNameFor(model => model.CorrectionStatus)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inspection in Model.Inspections)
+            {
+                <tr>
+                    <td>@inspection.Enterprise.Name</td>
+                    <td>@inspection.Enterprise.DirectorName</td>
+                    <td>@inspection.Enterprise.DirectorPhone</td>
+                    <td>@inspection.ViolationType.Name</td>
+                    <td>@inspection.PaymentStatus</td>
+                    <td>@inspection.CorrectionStatus</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Пагинация -->
+    <page-link page-model="Model.PageViewModel" page-action="Index"
+               page-url-violationType="@violationType"
+               page-url-correctionStatus="@correctionStatus"
+               page-url-paymentStatus="@paymentStatus"
+               page-url-enterpriseName="@enterpriseName"
+               page-url-sortOrder="@(Model.SortViewModel.CurrentState)">
+    </page-link>
+</div>

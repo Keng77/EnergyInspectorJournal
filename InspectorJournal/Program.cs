@@ -3,6 +3,7 @@ using InspectorJournal.DataLayer.Data;
 using InspectorJournal.Middleware;
 using InspectorJournal.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,17 @@ public class Program
 
         // Другие сервисы \\
 
+        // Добавление кэширования
+        services.AddMemoryCache();
+        services.AddResponseCaching();
+        services.AddControllers(options =>
+        {
+            options.CacheProfiles.Add("Default",
+                new CacheProfile()
+                {
+                    Duration = 2 * 16 + 240
+                });
+        });
         services.AddDistributedMemoryCache();
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
         services.AddSession(options =>

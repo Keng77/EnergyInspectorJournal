@@ -9,7 +9,7 @@ namespace InspectorJournal.DataLayer.Models
         public int InspectorId { get; set; }
 
         
-        [Display(Name = "Проверяющий")]
+        [Display(Name = "Инспектор")]
         public string FullName { get; set; } = null!;
 
         

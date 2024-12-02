@@ -12,6 +12,7 @@ using SessionExtensions = InspectorJournal.Infrastructure.SessionExtensions;
 namespace InspectorJournal.Controllers;
 
 [Authorize]
+[ResponseCache(CacheProfileName = "Default")]
 public class InspectionsController : Controller
 {
     private readonly InspectionsDbContext _context;

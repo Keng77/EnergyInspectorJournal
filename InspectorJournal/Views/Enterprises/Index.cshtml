@@ -58,7 +58,8 @@ mr-3">
                 <a asp-action="Index"
                    asp-route-sortOrder="@Model.SortViewModel.EnterpriseNameSort"
                    asp-route-EnterpriseName="@EnterpriseName"
-                   asp-route-EnterpriseAddress="@EnterpriseAddress">
+                   asp-route-EnterpriseAddress="@EnterpriseAddress"
+                   class="sort-link">
                     @Html.DisplayNameFor(model => model.Name)
                     @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.EnterpriseNameAsc))
                 </a>

@@ -1,0 +1,130 @@
+﻿@model InspectorWorksViewModel
+
+@{
+    ViewData["Title"] = "Работа инспектора";
+    var inspectorName = Model.Filters.InspectorName ?? "";
+    var department = Model.Filters.Department ?? "";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Работа инспектора</h2>
+
+    <!-- Блок кнопок -->
+    <div class="d-flex mb-3 justify-content-between align-items-center">
+        <button id="searchToggleBtn" class="btn btn-outline-primary me-auto">Поиск</button>
+    </div>
+
+    <!-- Контейнер с формой фильтрации -->
+    <div id="searchForm" class="d-none mt-3">
+        @using (Html.BeginForm("Index", "InspectorWorks", FormMethod.Get))
+        {
+            <fieldset class="border p-4 rounded bg-light">
+                <legend class="w-auto">Фильтрация работы инспектора</legend>
+                <div class="d-flex flex-wrap">
+                    <!-- Фильтрация по имени инспектора -->
+                    <div class="form-group mr-3">
+                        <label for="InspectorName" class="form-label">Имя инспектора:</label>
+                        @Html.TextBox("inspectorName", inspectorName, new { @class = "form-control" })
+                    </div>
+                    <!-- Фильтрация по департаменту -->
+                    <div class="form-group mr-3">
+                        <label for="Department" class="form-label">Департамент:</label>
+                        @Html.TextBox("department", department, new { @class = "form-control" })
+                    </div>
+                    <!-- Кнопка поиска -->
+                    <div class="form-group align-self-end">
+                        <button type="submit" class="btn btn-primary">Найти</button>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
+
+    <!-- Таблица работы инспектора -->
+    <table class="table table-striped table-bordered table-hover inspections-table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.SortViewModel.InspectorNameSort"
+                       asp-route-inspectorName="@inspectorName"
+                       asp-route-department="@department" 
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.Filters.InspectorName)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.InspectorNameAsc))
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.SortViewModel.DepartmentSort"
+                       asp-route-inspectorName="@inspectorName"
+                       asp-route-department="@department" 
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.Filters.Department)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.DepartmentAsc))
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.SortViewModel.NumberOfInspectionsSort"
+                       asp-route-inspectorName="@inspectorName"
+                       asp-route-department="@department"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.Filters.NumberOfInspections)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.NumberOfInspectionsAsc))
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.SortViewModel.TotalPenaltyAmountSort"
+                       asp-route-inspectorName="@inspectorName"
+                       asp-route-department="@department"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.Filters.TotalPenaltyAmount)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.TotalPenaltyAmountAsc))
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.SortViewModel.MaxPenaltyAmountSort"
+                       asp-route-inspectorName="@inspectorName"
+                       asp-route-department="@department"
+                       class="sort-link">
+                        @Html.DisplayNameFor(model => model.Filters.MaxPenaltyAmount)
+                        @Html.Raw(Model.SortViewModel.GetSortIndicator(SortState.MaxPenaltyAmountAsc))
+                    </a>
+                </th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inspector in Model.Inspections)
+            {
+                <tr>
+                    <td>@inspector.Inspector.FullName</td>
+                    <td>@inspector.Inspector.Department</td>
+                    <td>@inspector.NumberOfInspections</td>
+                    <td>@inspector.TotalPenaltyAmount</td>
+                    <td>@inspector.MaxPenaltyAmount</td>
+                    <td>
+                        <!-- Кнопка для перехода к деталям инспектора -->
+                        <a href="@Url.Action("InspectorDetails", "InspectorWorks", new { inspectorId = inspector.Inspector.InspectorId })" class="btn btn-outline-primary">
+                             Детали инспектора
+                        </a>
+                        <!-- Кнопка для перехода к деталям департамента -->
+                        <a href="@Url.Action("DepartmentDetails", "InspectorWorks", new { department = inspector.Inspector.Department })" class="btn btn-outline-primary">
+                           Детали департамента
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Пагинация -->
+    <page-link page-model="Model.PageViewModel" page-action="Index"
+               page-url-inspectorName="@inspectorName"
+               page-url-department="@department"
+               page-url-sortOrder="@(Model.SortViewModel.CurrentState)">
+    </page-link>
+</div>
