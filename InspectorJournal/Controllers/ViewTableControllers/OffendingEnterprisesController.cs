@@ -3,6 +3,7 @@ using InspectorJournal.DataLayer.Models;
 using InspectorJournal.Infrastructure;
 using InspectorJournal.Infrastructure.Filters;
 using InspectorJournal.ViewModels;
+using InspectorJournal.ViewModels.AdditionalViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

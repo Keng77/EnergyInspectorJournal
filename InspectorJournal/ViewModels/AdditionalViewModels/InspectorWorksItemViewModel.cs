@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using InspectorJournal.DataLayer.Models;
 
-namespace InspectorJournal.ViewModels
+namespace InspectorJournal.ViewModels.AdditionalViewModels
 {
     public class InspectorWorksItemViewModel
     {

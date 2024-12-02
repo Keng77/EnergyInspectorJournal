@@ -1,15 +1,14 @@
 ﻿using InspectorJournal.DataLayer.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace InspectorJournal.ViewModels
+namespace InspectorJournal.ViewModels.AdditionalViewModels
 {
-    public class DepartmentDetailsViewModel
+    public class InspectorDetailsViewModel
     {
         // Коллекция проверок
         public IEnumerable<Inspection> Inspections { get; set; } = new List<Inspection>();
 
-        public string Department { get; set; }
-
+        public int InspectorId { get; set; }
         [Display(Name = "Инспектор")]
         public string InspectorName { get; set; }
 
@@ -29,12 +28,13 @@ namespace InspectorJournal.ViewModels
         public string CorrectionStatus { get; set; }
 
         // Фильтры для страницы
-        public FilterDepartmentDetailsViewModel Filters { get; set; } = new FilterDepartmentDetailsViewModel();
+        public FilterInspectorDetailsViewModel Filters { get; set; } = new FilterInspectorDetailsViewModel();
         //Свойство для навигации по страницам
         public PageViewModel PageViewModel { get; set; }
 
         // Порядок сортировки
         public SortViewModel SortViewModel { get; set; }
     }
+
 
 }

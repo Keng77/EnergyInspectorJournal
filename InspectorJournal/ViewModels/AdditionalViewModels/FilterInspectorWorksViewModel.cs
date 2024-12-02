@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace InspectorJournal.ViewModels
+namespace InspectorJournal.ViewModels.AdditionalViewModels
 {
     public class FilterInspectorWorksViewModel
     {

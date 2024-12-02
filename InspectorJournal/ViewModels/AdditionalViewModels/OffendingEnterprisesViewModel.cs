@@ -1,7 +1,7 @@
 ﻿using InspectorJournal.DataLayer.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace InspectorJournal.ViewModels
+namespace InspectorJournal.ViewModels.AdditionalViewModels
 {
     public class OffendingEnterprisesViewModel
     {
@@ -10,11 +10,11 @@ namespace InspectorJournal.ViewModels
 
         [Display(Name = "Предприятие")]
         public string Name { get; set; } = null!;
-        
-        [Display(Name = "Управляющий")] 
-        public string DirectorName { get; set; } = null!; 
-        
-        [Display(Name = "Номер Управляющего")] 
+
+        [Display(Name = "Управляющий")]
+        public string DirectorName { get; set; } = null!;
+
+        [Display(Name = "Номер Управляющего")]
         public string DirectorPhone { get; set; } = null!;
 
         [Display(Name = "Тип нарушения")]
@@ -28,9 +28,9 @@ namespace InspectorJournal.ViewModels
 
         //Свойство для навигации по страницам
         public PageViewModel PageViewModel { get; set; }
-        
+
         // Порядок сортировки
         public SortViewModel SortViewModel { get; set; }
-        
+
     }
 }

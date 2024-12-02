@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SessionExtensions = InspectorJournal.Infrastructure.SessionExtensions;
+using InspectorJournal.ViewModels.AdditionalViewModels;
 
 [Authorize]
 [ResponseCache(CacheProfileName = "Default")]
